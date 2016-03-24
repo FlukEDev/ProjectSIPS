@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">SIPS</string>
+    <string name="open_drawer">Open Menu</string>
+    <string name="close_drawer">Close Menu</string>
+    <string name="sips">(SIPS) \nจังหวัดสระแก้ว</string>
+</resources>
