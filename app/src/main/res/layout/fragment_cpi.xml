@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
 
@@ -33,6 +34,8 @@
 
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/sMonth"
+            app:ms_background_color="@color/background"
+            app:ms_text_color="@color/font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/padding"
@@ -58,6 +61,8 @@
 
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/sYear"
+            app:ms_background_color="@color/background"
+            app:ms_text_color="@color/font"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/padding"

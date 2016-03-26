@@ -17,7 +17,7 @@ repositories {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "24.0.0 rc1"
+    buildToolsVersion "24.0.0 rc2"
 
     defaultConfig {
         applicationId "fluke.projectsips"
