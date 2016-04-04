@@ -6,4 +6,6 @@
     <color name="background">#78909C</color>
     <color name="font">#ffffff</color>
     <color name="button">#546E7A</color>
+    <color name="btn_search_pressed">#607D8B</color>
+    <color name="btn_search_selected">#546E7A</color>
 </resources>

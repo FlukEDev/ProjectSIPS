@@ -3,4 +3,17 @@
     <string name="open_drawer">Open Menu</string>
     <string name="close_drawer">Close Menu</string>
     <string name="sips">(SIPS) \nจังหวัดสระแก้ว</string>
+
+    <string-array name="district">
+        <item>เมืองสระแก้ว</item>
+        <item>คลองหาด</item>
+        <item>ตาพระยา</item>
+        <item>วังน้ำเย็น</item>
+        <item>วัฒนานคร</item>
+        <item>อรัญประเทศ</item>
+        <item>เขาฉกรรจ์</item>
+        <item>โคกสูง</item>
+        <item>วังสมบูรณ์</item>
+    </string-array>
+
 </resources>
