@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import fluke.projectsips.R;
-import fluke.projectsips.activity.SecondActivity;
+import fluke.projectsips.activity.GppActivity;
 import fluke.projectsips.adapter.GppListAdapter;
 
 
@@ -86,32 +86,32 @@ public class GppFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
                 case 0:
-                    Intent intent = new Intent(getContext(), SecondActivity.class);
+                    Intent intent = new Intent(getContext(), GppActivity.class);
                     intent.putExtra("gpp", 0);
                     startActivity(intent);
                     break;
                 case 1:
-                    Intent intent1 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent1 = new Intent(getContext(), GppActivity.class);
                     intent1.putExtra("gpp", 1);
                     startActivity(intent1);
                     break;
                 case 2:
-                    Intent intent2 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent2 = new Intent(getContext(), GppActivity.class);
                     intent2.putExtra("gpp", 2);
                     startActivity(intent2);
                     break;
                 case 3:
-                    Intent intent3 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent3 = new Intent(getContext(), GppActivity.class);
                     intent3.putExtra("gpp", 3);
                     startActivity(intent3);
                     break;
                 case 4:
-                    Intent intent4 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent4 = new Intent(getContext(), GppActivity.class);
                     intent4.putExtra("gpp", 4);
                     startActivity(intent4);
                     break;
                 case 5:
-                    Intent intent5 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent5 = new Intent(getContext(), GppActivity.class);
                     intent5.putExtra("gpp", 5);
                     startActivity(intent5);
                     break;

@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import fluke.projectsips.R;
-import fluke.projectsips.activity.SecondActivity;
+import fluke.projectsips.activity.LfpActivity;
 import fluke.projectsips.adapter.LfpListAdapter;
 
 
@@ -86,42 +86,42 @@ public class LfpFragment extends Fragment {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             switch (position) {
                 case 0:
-                    Intent intent = new Intent(getContext(), SecondActivity.class);
+                    Intent intent = new Intent(getContext(), LfpActivity.class);
                     intent.putExtra("lfp", 0);
                     startActivity(intent);
                     break;
                 case 1:
-                    Intent intent1 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent1 = new Intent(getContext(), LfpActivity.class);
                     intent1.putExtra("lfp", 1);
                     startActivity(intent1);
                     break;
                 case 2:
-                    Intent intent2 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent2 = new Intent(getContext(), LfpActivity.class);
                     intent2.putExtra("lfp", 2);
                     startActivity(intent2);
                     break;
                 case 3:
-                    Intent intent3 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent3 = new Intent(getContext(), LfpActivity.class);
                     intent3.putExtra("lfp", 3);
                     startActivity(intent3);
                     break;
                 case 4:
-                    Intent intent4 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent4 = new Intent(getContext(), LfpActivity.class);
                     intent4.putExtra("lfp", 4);
                     startActivity(intent4);
                     break;
                 case 5:
-                    Intent intent5 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent5 = new Intent(getContext(), LfpActivity.class);
                     intent5.putExtra("lfp", 5);
                     startActivity(intent5);
                     break;
                 case 6:
-                    Intent intent6 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent6 = new Intent(getContext(), LfpActivity.class);
                     intent6.putExtra("lfp", 6);
                     startActivity(intent6);
                     break;
                 case 7:
-                    Intent intent7 = new Intent(getContext(), SecondActivity.class);
+                    Intent intent7 = new Intent(getContext(), LfpActivity.class);
                     intent7.putExtra("lfp", 7);
                     startActivity(intent7);
                     break;
