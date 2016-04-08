@@ -72,9 +72,7 @@ public class SecondActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, UnemployedSexFragment.newInstance())
                     .commit();
-        }
-
-        if (gppKey == 0) {
+        } else  if (gppKey == 0) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, GppSakaeoFragment.newInstance())
                     .commit();

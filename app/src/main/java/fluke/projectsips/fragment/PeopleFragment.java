@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
@@ -66,6 +67,9 @@ public class PeopleFragment extends Fragment {
         sYear = (MaterialSpinner) rootView.findViewById(R.id.sYear);
         sYear.setItems("2555", "2554", "2553", "2552", "2551", "2550");
 
+        sDistrict.setOnItemSelectedListener(districtSelectItem);
+        sYear.setOnItemSelectedListener(yearSelectItem);
+
         btnSearch = (Button) rootView.findViewById(R.id.submit);
         btnSearch.setOnClickListener(searchClick);
 
@@ -89,22 +93,21 @@ public class PeopleFragment extends Fragment {
     View.OnClickListener searchClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            sDistrict.setOnItemSelectedListener(districtSelectItem);
-            sYear.setOnItemSelectedListener(yearSelectItem);
+
         }
     };
 
     MaterialSpinner.OnItemSelectedListener districtSelectItem = new MaterialSpinner.OnItemSelectedListener() {
         @Override
         public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-            //Toast.makeText(getContext(), "District Position = " + position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "District Position = " + position, Toast.LENGTH_SHORT).show();
         }
     };
 
     MaterialSpinner.OnItemSelectedListener yearSelectItem = new MaterialSpinner.OnItemSelectedListener() {
         @Override
         public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-            //Toast.makeText(getContext(), "Year Position = " + position, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Year Position = " + position, Toast.LENGTH_SHORT).show();
         }
     };
 }
