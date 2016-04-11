@@ -1,11 +1,14 @@
 package fluke.projectsips.manager.http;
 
-/**
- * Created by FLUKE on 3/31/2016 AD.
- */
+import fluke.projectsips.dao.PopulationCollectionDao;
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
 public interface ApiService {
 
-    //@GET("people/districtID/{districtID}/")
-    //Call<districtID> getDistrictID(@Path("districtID") String districtID);
+    @GET("population/districtID/{districtID}/populationYear/{populationYear}")
+    Call<PopulationCollectionDao> getPopulation(@Path("districtID") int districtID, @Path("populationYear") int populationYear);
+
 
 }

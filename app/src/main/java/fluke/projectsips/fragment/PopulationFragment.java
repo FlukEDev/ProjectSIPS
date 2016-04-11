@@ -11,22 +11,29 @@ import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 
+import java.io.IOException;
+
 import fluke.projectsips.R;
+import fluke.projectsips.dao.PopulationCollectionDao;
+import fluke.projectsips.manager.HttpManager;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
-public class PeopleFragment extends Fragment {
+public class PopulationFragment extends Fragment {
 
     private MaterialSpinner sDistrict;
     private MaterialSpinner sYear;
     private Button btnSearch;
 
 
-    public PeopleFragment() {
+    public PopulationFragment() {
         super();
     }
 
-    public static PeopleFragment newInstance() {
-        PeopleFragment fragment = new PeopleFragment();
+    public static PopulationFragment newInstance() {
+        PopulationFragment fragment = new PopulationFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -44,7 +51,7 @@ public class PeopleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_people, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_population, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -93,7 +100,30 @@ public class PeopleFragment extends Fragment {
     View.OnClickListener searchClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            Call<PopulationCollectionDao> call = HttpManager.getInstance().getService().getPopulation(9, 2011);
+            call.enqueue(new Callback<PopulationCollectionDao>() {
+                @Override
+                public void onResponse(Call<PopulationCollectionDao> call, Response<PopulationCollectionDao> response) {
 
+                    if (response.isSuccessful()) {
+                        PopulationCollectionDao dao = response.body();
+                        Toast.makeText(getActivity(), dao.getData().get(0).getPopulationFemale(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), dao.getData().get(0).getPopulationMale(), Toast.LENGTH_LONG).show();
+                    } else {
+                        try {
+                            Toast.makeText(getActivity(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<PopulationCollectionDao> call, Throwable t) {
+                    Toast.makeText(getActivity(), t.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
         }
     };
 

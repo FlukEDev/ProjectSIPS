@@ -33,7 +33,7 @@ import fluke.projectsips.fragment.EconomicMonthFragment;
 import fluke.projectsips.fragment.GppFragment;
 import fluke.projectsips.fragment.LfpFragment;
 import fluke.projectsips.fragment.MainFragment;
-import fluke.projectsips.fragment.PeopleFragment;
+import fluke.projectsips.fragment.PopulationFragment;
 import io.fabric.sdk.android.Fabric;
 
 
@@ -121,9 +121,9 @@ public class MainActivity extends AppCompatActivity {
                             case 6:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
                                     getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof PeopleFragment == false) {
+                                if (fragment instanceof PopulationFragment == false) {
                                     getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, PeopleFragment.newInstance())
+                                            .replace(R.id.contentContainer, PopulationFragment.newInstance())
                                             .addToBackStack(null)
                                             .commit();
                                     drawerLayout.closeDrawer(Gravity.LEFT);
