@@ -6,10 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import fluke.projectsips.R;
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 public class EconomicMonthFragment extends Fragment {
+
+    private MaterialSpinner sMonth;
 
     public EconomicMonthFragment() {
         super();
@@ -49,6 +53,12 @@ public class EconomicMonthFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
+
+        String[] month = {"มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"};
+        ArrayAdapter<String> adapterMonth = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, month);
+        adapterMonth.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sMonth = (MaterialSpinner) rootView.findViewById(R.id.sMonth);
+        sMonth.setAdapter(adapterMonth);
     }
 
     @Override

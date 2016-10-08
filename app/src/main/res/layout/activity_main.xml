@@ -22,10 +22,10 @@
 
 
         <FrameLayout
-            android:background="@color/background"
             android:id="@+id/contentContainer"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:background="@color/background" />
 
     </LinearLayout>
 
@@ -38,22 +38,22 @@
         android:orientation="vertical">
 
         <TextView
-            android:padding="15dp"
-            android:textStyle="bold"
-            android:gravity="right"
-            android:textSize="@dimen/headline"
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            android:gravity="right"
+            android:padding="15dp"
+            android:text="@string/sips"
             android:textColor="@color/font"
-            android:text="@string/sips"/>
+            android:textSize="@dimen/headline"
+            android:textStyle="bold" />
 
         <ExpandableListView
             android:id="@+id/expandList"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
-            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:layout_height="match_parent"
             android:divider="@android:color/darker_gray"
-            android:dividerHeight="0.5dp" />
+            android:dividerHeight="0.5dp"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft" />
 
     </LinearLayout>
 

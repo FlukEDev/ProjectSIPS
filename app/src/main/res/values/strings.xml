@@ -16,4 +16,28 @@
         <item>วังสมบูรณ์</item>
     </string-array>
 
+    <string-array name="month">
+        <item>มกราคม</item>
+        <item>กุมภาพันธ์</item>
+        <item>มีนาคม</item>
+        <item>เมษายน</item>
+        <item>พฤษภาคม</item>
+        <item>มิถุนายน</item>
+        <item>กรกฎาคม</item>
+        <item>สิงหาคม</item>
+        <item>กันยายน</item>
+        <item>ตุลาคม</item>
+        <item>พฤศจิกายน</item>
+        <item>ธันวาคม</item>
+    </string-array>
+
+    <string-array name="gpp_year">
+        <item>2552</item>
+        <item>2551</item>
+        <item>2550</item>
+        <item>2549</item>
+        <item>2548</item>
+        <item>2547</item>
+    </string-array>
+
 </resources>

@@ -6,11 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 import fluke.projectsips.R;
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 
 public class EmployedJobAndSexFragment extends Fragment {
+
+    private MaterialSpinner sQuarter;
 
     public EmployedJobAndSexFragment() {
         super();
@@ -50,6 +54,12 @@ public class EmployedJobAndSexFragment extends Fragment {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
+
+        String[] quarter = {"ไตรมาส 1", "ไตรมาส 2", "ไตรมาส 3", "ไตรมาส 4"};
+        ArrayAdapter<String> adapterQuarter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, quarter);
+        adapterQuarter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sQuarter = (MaterialSpinner) rootView.findViewById(R.id.sQuarter);
+        sQuarter.setAdapter(adapterQuarter);
     }
 
     @Override

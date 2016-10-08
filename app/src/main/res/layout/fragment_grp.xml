@@ -32,14 +32,14 @@
             android:textColor="@color/font"
             android:textSize="@dimen/body" />
 
-        <com.jaredrummler.materialspinner.MaterialSpinner
+        <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/sYear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/padding"
             android:layout_weight="1"
-            app:ms_background_color="@color/background"
-            app:ms_text_color="@color/font" />
+            app:ms_floatingLabelColor="@color/font"
+            app:ms_hint="เลือกปี" />
 
     </LinearLayout>
 
@@ -59,14 +59,14 @@
             android:textColor="@color/font"
             android:textSize="@dimen/body" />
 
-        <com.jaredrummler.materialspinner.MaterialSpinner
+        <fr.ganfra.materialspinner.MaterialSpinner
             android:id="@+id/sZone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
+            android:layout_marginRight="@dimen/padding"
             android:layout_weight="1"
-            app:ms_background_color="@color/background"
-            app:ms_text_color="@color/font" />
+            app:ms_floatingLabelColor="@color/font"
+            app:ms_hint="เลือกภาค" />
 
     </LinearLayout>
 
@@ -82,6 +82,7 @@
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="#000000"
                 android:text="ณ ราคาประจำปี (GPP at Current Market Prices)"
                 android:textColor="@color/font"
                 android:textSize="@dimen/body" />
@@ -89,6 +90,7 @@
             <RadioButton
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:buttonTint="#000000"
                 android:text="ณ ระดับราคาคงที่ (GPP at Constant Prices)"
                 android:textColor="@color/font"
                 android:textSize="@dimen/body" />

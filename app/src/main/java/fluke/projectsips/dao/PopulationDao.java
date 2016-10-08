@@ -1,25 +1,49 @@
 package fluke.projectsips.dao;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class PopulationDao {
 
-    @SerializedName("populationMale")           private int populationMale;
-    @SerializedName("populationFemale")         private int populationFemale;
+    @SerializedName("populationMale")
+    @Expose
+    private String populationMale;
+    @SerializedName("populationFemale")
+    @Expose
+    private String populationFemale;
 
-    public int getPopulationMale() {
+    /**
+     * @return The populationMale
+     */
+    public String getPopulationMale() {
         return populationMale;
     }
 
-    public void setPopulationMale(int populationMale) {
+    /**
+     *
+     * @param populationMale
+     * The populationMale
+     */
+    public void setPopulationMale(String populationMale) {
         this.populationMale = populationMale;
     }
 
-    public int getPopulationFemale() {
+    /**
+     *
+     * @return
+     * The populationFemale
+     */
+    public String getPopulationFemale() {
         return populationFemale;
     }
 
-    public void setPopulationFemale(int populationFemale) {
+    /**
+     *
+     * @param populationFemale
+     * The populationFemale
+     */
+    public void setPopulationFemale(String populationFemale) {
         this.populationFemale = populationFemale;
     }
 }
+

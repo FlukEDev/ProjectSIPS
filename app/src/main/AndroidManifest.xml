@@ -24,7 +24,8 @@
             android:name="io.fabric.ApiKey"
             android:value="b63eff2bd10547a83624e784cb84de08ef973ec7" />
 
-        <activity android:name=".activity.GppActivity"></activity>
+        <activity android:name=".activity.GppActivity" />
+        <activity android:name=".activity.DataActivity" />
     </application>
 
 </manifest>

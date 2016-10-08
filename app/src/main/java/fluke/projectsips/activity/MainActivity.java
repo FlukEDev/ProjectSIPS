@@ -16,9 +16,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
-
-import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,7 +23,7 @@ import java.util.List;
 
 import fluke.projectsips.R;
 import fluke.projectsips.adapter.MyExpandableAdapter;
-import fluke.projectsips.fragment.CategoryCpiFragment;
+import fluke.projectsips.fragment.CategCpiFragment;
 import fluke.projectsips.fragment.ComingFragment;
 import fluke.projectsips.fragment.CpiFragment;
 import fluke.projectsips.fragment.EconomicMonthFragment;
@@ -34,7 +31,7 @@ import fluke.projectsips.fragment.GppFragment;
 import fluke.projectsips.fragment.LfpFragment;
 import fluke.projectsips.fragment.MainFragment;
 import fluke.projectsips.fragment.PopulationFragment;
-import io.fabric.sdk.android.Fabric;
+import fluke.projectsips.fragment.agriculture.AreaFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -52,44 +49,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         initInstances();
         expandableListView();
-        checkInternet();
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, MainFragment.newInstance())
                     .commit();
-        }
-    }
-
-    private void checkInternet() {
-        ConnectivityManager connMgr = (ConnectivityManager) this
-                .getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-
-        if (networkInfo != null && networkInfo.isConnected()) {
-            // fetch data
-
-        } else {
-            // display error
-            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-            alertDialogBuilder.setTitle("No Internet Connection");
-            alertDialogBuilder.setMessage("You are offline please check your internet connection");
-            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface arg0, int arg1) {
-                    //Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
-                    finish();
-                }
-            });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
         }
     }
 
@@ -114,8 +82,9 @@ public class MainActivity extends AppCompatActivity {
                 Fragment fragment = getSupportFragmentManager()
                         .findFragmentById(R.id.contentContainer);
 
-                Toast.makeText(MainActivity.this, headers.get(groupPosition) + "--" + headerItems.get(headers.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, headers.get(groupPosition) + "--" + headerItems.get(headers.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
                 switch (groupPosition) {
+                    // Information
                     case 0:
                         switch (childPosition) {
                             case 6:
@@ -131,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Economic Trade
                     case 1:
                         switch (childPosition) {
                             case 0:
@@ -147,9 +117,9 @@ public class MainActivity extends AppCompatActivity {
                             case 1:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
                                     getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof CategoryCpiFragment == false) {
+                                if (fragment instanceof CategCpiFragment == false) {
                                     getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, CategoryCpiFragment.newInstance())
+                                            .replace(R.id.contentContainer, CategCpiFragment.newInstance())
                                             .addToBackStack(null)
                                             .commit();
                                     drawerLayout.closeDrawer(Gravity.LEFT);
@@ -202,6 +172,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Investment
                     case 2:
                         switch (childPosition) {
                             case 0:
@@ -254,6 +225,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Border Trade
                     case 3:
                         switch (childPosition) {
                             case 0:
@@ -378,6 +350,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // otop
                     case 4:
                         switch (childPosition) {
                             case 0:
@@ -488,6 +461,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Agriculture
                     case 5:
                         switch (childPosition) {
                             case 0:
@@ -553,9 +527,9 @@ public class MainActivity extends AppCompatActivity {
                             case 5:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
                                     getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
+                                if (fragment instanceof AreaFragment == false) {
                                     getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .replace(R.id.contentContainer, AreaFragment.newInstance())
                                             .addToBackStack(null)
                                             .commit();
                                     drawerLayout.closeDrawer(Gravity.LEFT);
@@ -612,6 +586,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Industry
                     case 6:
                         switch (childPosition) {
                             case 0:
@@ -676,6 +651,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Tourism
                     case 7:
                         switch (childPosition) {
                             case 0:
@@ -764,6 +740,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Transport
                     case 8:
                         switch (childPosition) {
                             case 0:
@@ -840,6 +817,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Asean
                     case 9:
                         switch (childPosition) {
                             case 0:
@@ -916,6 +894,7 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
+                    // Power Plant
                     case 10:
                         switch (childPosition) {
                             case 0:
@@ -952,14 +931,14 @@ public class MainActivity extends AppCompatActivity {
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
-                Toast.makeText(MainActivity.this, headers.get(groupPosition), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, headers.get(groupPosition), Toast.LENGTH_SHORT).show();
             }
         });
         //get the collapse of headers
         expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
             @Override
             public void onGroupCollapse(int groupPosition) {
-                Toast.makeText(MainActivity.this, headers.get(groupPosition), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, headers.get(groupPosition), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -978,7 +957,6 @@ public class MainActivity extends AppCompatActivity {
         headers = new ArrayList<String>();
         headerItems = new HashMap<String, List<String>>();
 
-        //adding headers
         //adding headers
         headers.add("ข้อมูลทั่วไป");
         headers.add("ภาวะเศรษฐกิจการค้า");
@@ -1127,5 +1105,34 @@ public class MainActivity extends AppCompatActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         actionBarDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    protected void onResume() {
+        ConnectivityManager connMgr = (ConnectivityManager) this
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // fetch data
+
+        } else {
+            // display error
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("No Internet Connection");
+            alertDialogBuilder.setMessage("You are offline please check your internet connection");
+            alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    //Toast.makeText(MainActivity.this,"No Internet Connection",Toast.LENGTH_LONG).show();
+                    finish();
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        }
+        super.onResume();
     }
 }

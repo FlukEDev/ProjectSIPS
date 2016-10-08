@@ -42,7 +42,7 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
         final String childname = (String) getChild(groupPosition, childPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.con
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.headers_items, null);
         }
         TextView listchild = (TextView) convertView.findViewById(R.id.headerItem);
@@ -77,7 +77,7 @@ public class MyExpandableAdapter extends BaseExpandableListAdapter {
         String headername = (String) getGroup(groupPosition);
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) this.con
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);;
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.listview_header, null);
         }
         TextView header = (TextView) convertView.findViewById(R.id.expandHeader);
