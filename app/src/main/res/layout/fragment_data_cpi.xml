@@ -26,47 +26,78 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TableLayout
-                android:id="@+id/tableData"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/border"
-                android:orientation="vertical"
-                android:padding="10dp"
-                android:stretchColumns="*">
+                android:orientation="vertical">
 
-                <TableRow android:background="?attr/colorPrimary">
+                <TableLayout
+                    android:id="@+id/tableData"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:stretchColumns="*">
+
+                    <TableRow android:background="?attr/colorPrimary">
+
+                        <TextView
+                            android:layout_width="20dp"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="เดือน"
+                            android:textColor="@color/font"
+                            android:textSize="@dimen/subHeadLine"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="50dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="ดัชนี"
+                            android:textColor="@color/font"
+                            android:textSize="@dimen/subHeadLine"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="150dp"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="อัตราการเปลี่ยนแปลง (M)"
+                            android:textColor="@color/font"
+                            android:textSize="@dimen/subHeadLine"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                </TableLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="20dp"
-                        android:layout_height="50dp"
+                        android:id="@+id/little2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="เดือน"
+                        android:padding="@dimen/padding"
+                        android:text="เทียบเดือนก่อนหน้า"
                         android:textColor="@color/font"
-                        android:textSize="@dimen/subHeadLine"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/subHeadLine" />
 
-                    <TextView
-                        android:layout_width="50dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="ดัชนี"
-                        android:textColor="@color/font"
-                        android:textSize="@dimen/subHeadLine"
-                        android:textStyle="bold" />
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/cpi"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp" />
 
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="อัตราการเปลี่ยนแปลง (M)"
-                        android:textColor="@color/font"
-                        android:textSize="@dimen/subHeadLine"
-                        android:textStyle="bold" />
-                </TableRow>
+                </LinearLayout>
 
-            </TableLayout>
+            </LinearLayout>
 
         </ScrollView>
     </LinearLayout>

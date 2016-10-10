@@ -13,6 +13,11 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
@@ -24,6 +29,7 @@ public class DataCpiFragment extends Fragment {
     private ArrayList<String> monthYear;
     private ArrayList<String> rateChange;
     private TableLayout tableData;
+    private BarChart barChart;
 
     public DataCpiFragment() {
         super();
@@ -50,16 +56,44 @@ public class DataCpiFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_data_cpi, container, false);
         initInstances(rootView, savedInstanceState);
-        tableView();
-        return rootView;
-    }
 
-    private void tableView() {
         Intent intent = getActivity().getIntent();
 
         cpiValue = intent.getStringArrayListExtra("listCpiValue");
         rateChange = intent.getStringArrayListExtra("listRateChange");
         monthYear = intent.getStringArrayListExtra("listMonth");
+
+        tableView();
+        chart();
+        return rootView;
+    }
+
+    private void chart() {
+
+        ArrayList<String> listRateChange = new ArrayList<String>();
+        for (String tamp : rateChange) {
+            listRateChange.add(tamp);
+        }
+
+        final ArrayList<String> listMonthYear = new ArrayList<String>();
+        for (String tamp : monthYear) {
+            listMonthYear.add(tamp);
+        }
+
+        ArrayList<BarEntry> rateChange = new ArrayList<BarEntry>();
+        for (int i = 0; i < listRateChange.size(); i++) {
+            rateChange.add(new BarEntry(Float.parseFloat(listRateChange.get(i)), i));
+        }
+
+        BarDataSet dataset = new BarDataSet(rateChange, "อัตราการเปลี่ยนแปลง(M)");
+        BarData data = new BarData(listMonthYear, dataset);
+
+        barChart.setDescription("");
+        barChart.getAxisRight().setEnabled(false);
+        barChart.setData(data);
+    }
+
+    private void tableView() {
 
         ArrayList<String> listCpiValue = new ArrayList<String>();
         for (String tamp : cpiValue) {
@@ -117,6 +151,7 @@ public class DataCpiFragment extends Fragment {
         //       in onSavedInstanceState
 
         tableData = (TableLayout) rootView.findViewById(R.id.tableData);
+        barChart = (BarChart) rootView.findViewById(R.id.cpi);
     }
 
     @Override

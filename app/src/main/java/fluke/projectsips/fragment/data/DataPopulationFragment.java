@@ -96,10 +96,8 @@ public class DataPopulationFragment extends Fragment {
         left.setDrawAxisLine(false); // no axis line
         left.setDrawGridLines(false); // no grid lines
         left.setDrawZeroLine(true); // draw a zero line
+
         mChart.getAxisRight().setEnabled(false); // no right axis
-
-        mChart.getAxisRight().setEnabled(false);
-
         mChart.setDescription("ข้อมูลประชากร");
 
         set1 = new LineDataSet(male, "เพศชาย");

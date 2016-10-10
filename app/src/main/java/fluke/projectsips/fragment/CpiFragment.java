@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -39,47 +39,8 @@ public class CpiFragment extends Fragment {
     private MaterialSpinner sYear;
     private Button btnSearch;
     private int sumYear;
-    AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            int val = 543;
-            if (position == -1) {
-                sumYear = 0;
-            } else {
-                try {
-                    sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
-                    //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
     private int month;
     private String sumMonth;
-    AdapterView.OnItemSelectedListener selectMonth = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
-            int val = 1;
-            month = i + val;
-            if (month < 10) {
-                sumMonth = "0" + month;
-            } else {
-                sumMonth = "" + month;
-            }
-            //Toast.makeText(getContext(), "Month = " + sumMonth, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
     private int j;
     private int i;
     private String date;
@@ -88,123 +49,9 @@ public class CpiFragment extends Fragment {
     private Float beforeCpiValue;
     private Number rateChange;
     private String finalValue;
-    private Date monthYear;
-    /*************
-     * Listener
-     *************/
+    private String monthYear;
+    private String dateInString;
 
-    View.OnClickListener searchClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            date = sumYear + "" + sumMonth + "00";
-
-            Call<CpiCollectionDao> call = HttpManager.getInstance().getService().getCpi(date);
-            call.enqueue(new Callback<CpiCollectionDao>() {
-                @Override
-                public void onResponse(Call<CpiCollectionDao> call, Response<CpiCollectionDao> response) {
-                    if (response.isSuccessful()) {
-                        CpiCollectionDao dao = response.body();
-                        if (month != 0 && sumYear != 0) {
-                            ArrayList<String> listRateChange = new ArrayList<String>();
-                            if (sumYear == 2008) {
-                                listRateChange.add(String.valueOf(0));
-                                for (i = 0, j = 1; i < dao.getData().size() && j < dao.getData().size(); i++, j++) {
-                                    cpiValue = Float.valueOf(dao.getData().get(j).getCpiValue());
-                                    beforeCpiValue = Float.valueOf(dao.getData().get(i).getCpiValue());
-                                    DecimalFormat df = new DecimalFormat("0.0");
-                                    finalValue = df.format(cpiValue - beforeCpiValue);
-                                    try {
-                                        rateChange = df.parse(finalValue);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    listRateChange.add(String.valueOf(rateChange));
-                                }
-
-                                ArrayList<String> listMonth = new ArrayList<String>();
-                                for (i = 0; i < dao.getData().size(); i++) {
-                                    monthYear = dao.getData().get(i).getMountYear();
-                                    Log.d("FLUKE", "Date : " + monthYear);
-                                    SimpleDateFormat dateParse = new SimpleDateFormat("MMM yyyy", new Locale("th", "TH"));
-                                    listMonth.add(dateParse.format(monthYear));
-                                }
-
-                                Log.d("FLUKE", "Date : " + listMonth);
-
-                                ArrayList<String> listCpiValue = new ArrayList<String>();
-                                for (i = 0; i < dao.getData().size(); i++) {
-                                    cpi = dao.getData().get(i).getCpiValue();
-                                    listCpiValue.add(cpi);
-                                }
-
-                                Intent intent = new Intent(getContext(), DataActivity.class);
-                                intent.putExtra("key", 1);
-                                intent.putStringArrayListExtra("listCpiValue", listCpiValue);
-                                intent.putStringArrayListExtra("listRateChange", listRateChange);
-                                intent.putStringArrayListExtra("listMonth", listMonth);
-
-                                startActivity(intent);
-
-                            } else {
-                                for (i = 0; i < 13; i++) {
-                                    cpiValue = Float.valueOf(dao.getData().get(i + 1).getCpiValue());
-                                    beforeCpiValue = Float.valueOf(dao.getData().get(i).getCpiValue());
-                                    DecimalFormat df = new DecimalFormat("0.0");
-                                    finalValue = df.format(cpiValue - beforeCpiValue);
-                                    try {
-                                        rateChange = df.parse(finalValue);
-                                    } catch (ParseException e) {
-                                        e.printStackTrace();
-                                    }
-                                    listRateChange.add(String.valueOf(rateChange));
-                                }
-
-                                Log.d("FLUKE", "Data = " + listRateChange);
-
-                                ArrayList<String> listMonth = new ArrayList<String>();
-                                for (i = 1; i < 14; i++) {
-                                    //monthYear = dao.getData().get(i).getMountYear();
-                                    //listMonth.add(monthYear);
-                                }
-
-                                ArrayList<String> listCpiValue = new ArrayList<String>();
-                                for (i = 1; i < 14; i++) {
-                                    cpi = dao.getData().get(i).getCpiValue();
-                                    listCpiValue.add(cpi);
-                                }
-
-                                Intent intent = new Intent(getContext(), DataActivity.class);
-                                intent.putExtra("key", 1);
-                                intent.putStringArrayListExtra("listCpiValue", listCpiValue);
-                                intent.putStringArrayListExtra("listRateChange", listRateChange);
-                                intent.putStringArrayListExtra("listMonth", listMonth);
-
-                                startActivity(intent);
-
-                            }
-                        } else {
-                            MsgBox();
-                        }
-
-                    } else {
-                        try {
-                            Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<CpiCollectionDao> call, Throwable t) {
-                    Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
-                }
-
-            });
-
-        }
-    };
 
     public CpiFragment() {
         super();
@@ -286,5 +133,181 @@ public class CpiFragment extends Fragment {
         AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
+
+    /*************
+     * Listener
+     *************/
+
+    View.OnClickListener searchClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            date = sumYear + "" + sumMonth + "00";
+
+            Call<CpiCollectionDao> call = HttpManager.getInstance().getService().getCpi(date);
+            call.enqueue(new Callback<CpiCollectionDao>() {
+                @Override
+                public void onResponse(Call<CpiCollectionDao> call, Response<CpiCollectionDao> response) {
+                    if (response.isSuccessful()) {
+                        CpiCollectionDao dao = response.body();
+                        if (month != 0 && sumYear != 0) {
+                            ArrayList<String> listRateChange = new ArrayList<String>();
+                            if (sumYear == 2008) {
+                                listRateChange.add(String.valueOf(0));
+                                for (i = 0, j = 1; i < dao.getData().size() && j < dao.getData().size(); i++, j++) {
+                                    cpiValue = Float.valueOf(dao.getData().get(j).getCpiValue());
+                                    beforeCpiValue = Float.valueOf(dao.getData().get(i).getCpiValue());
+                                    DecimalFormat df = new DecimalFormat("0.0");
+                                    finalValue = df.format(cpiValue - beforeCpiValue);
+                                    try {
+                                        rateChange = df.parse(finalValue);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    listRateChange.add(String.valueOf(rateChange));
+                                }
+
+                                ArrayList<String> listMonth = new ArrayList<String>();
+                                for (i = 0; i < dao.getData().size(); i++) {
+                                    monthYear = dao.getData().get(i).getMountYear();
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", new Locale("th", "TH"));
+                                    Calendar c = Calendar.getInstance();
+                                    try {
+                                        c.setTime(sdf.parse(monthYear));
+                                        c.add(Calendar.DATE, 1);
+                                        c.add(Calendar.YEAR, 543);
+                                        sdf = new SimpleDateFormat("MMM yyyy", new Locale("th", "TH"));
+                                        Date resultdate = new Date(c.getTimeInMillis());
+                                        monthYear = sdf.format(resultdate);
+                                        listMonth.add(monthYear);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                ArrayList<String> listCpiValue = new ArrayList<String>();
+                                for (i = 0; i < dao.getData().size(); i++) {
+                                    cpi = dao.getData().get(i).getCpiValue();
+                                    listCpiValue.add(cpi);
+                                }
+
+                                Intent intent = new Intent(getContext(), DataActivity.class);
+                                intent.putExtra("key", 1);
+                                intent.putStringArrayListExtra("listCpiValue", listCpiValue);
+                                intent.putStringArrayListExtra("listRateChange", listRateChange);
+                                intent.putStringArrayListExtra("listMonth", listMonth);
+
+                                startActivity(intent);
+
+                            } else {
+                                for (i = 0; i < 13; i++) {
+                                    cpiValue = Float.valueOf(dao.getData().get(i + 1).getCpiValue());
+                                    beforeCpiValue = Float.valueOf(dao.getData().get(i).getCpiValue());
+                                    DecimalFormat df = new DecimalFormat("0.0");
+                                    finalValue = df.format(cpiValue - beforeCpiValue);
+                                    try {
+                                        rateChange = df.parse(finalValue);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                    listRateChange.add(String.valueOf(rateChange));
+                                }
+
+                                ArrayList<String> listMonth = new ArrayList<String>();
+                                for (i = 1; i < 14; i++) {
+                                    monthYear = dao.getData().get(i).getMountYear();
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", new Locale("th", "TH"));
+                                    Calendar c = Calendar.getInstance();
+                                    try {
+                                        c.setTime(sdf.parse(monthYear));
+                                        c.add(Calendar.DATE, 1);
+                                        c.add(Calendar.YEAR, 543);
+                                        sdf = new SimpleDateFormat("MMM yyyy", new Locale("th", "TH"));
+                                        Date resultdate = new Date(c.getTimeInMillis());
+                                        monthYear = sdf.format(resultdate);
+                                        listMonth.add(monthYear);
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+
+                                ArrayList<String> listCpiValue = new ArrayList<String>();
+                                for (i = 1; i < 14; i++) {
+                                    cpi = dao.getData().get(i).getCpiValue();
+                                    listCpiValue.add(cpi);
+                                }
+
+                                Intent intent = new Intent(getContext(), DataActivity.class);
+                                intent.putExtra("key", 1);
+                                intent.putStringArrayListExtra("listCpiValue", listCpiValue);
+                                intent.putStringArrayListExtra("listRateChange", listRateChange);
+                                intent.putStringArrayListExtra("listMonth", listMonth);
+
+                                startActivity(intent);
+
+                            }
+                        } else {
+                            MsgBox();
+                        }
+
+                    } else {
+                        try {
+                            Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<CpiCollectionDao> call, Throwable t) {
+                    Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
+
+        }
+    };
+
+    AdapterView.OnItemSelectedListener selectMonth = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int i, long id) {
+            int val = 1;
+            month = i + val;
+            if (month < 10) {
+                sumMonth = "0" + month;
+            } else {
+                sumMonth = "" + month;
+            }
+            //Toast.makeText(getContext(), "Month = " + sumMonth, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            int val = 543;
+            if (position == -1) {
+                sumYear = 0;
+            } else {
+                try {
+                    sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
+                    //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 
 }
