@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import fluke.projectsips.R;
 import fluke.projectsips.fragment.data.DataCategCpiFragment;
 import fluke.projectsips.fragment.data.DataCpiFragment;
+import fluke.projectsips.fragment.data.DataGppProvinceFragment;
 import fluke.projectsips.fragment.data.DataGppSakaeoFragment;
 import fluke.projectsips.fragment.data.DataPopulationFragment;
 
@@ -32,19 +33,24 @@ public class DataActivity extends AppCompatActivity {
                     .add(R.id.contentContainer, DataPopulationFragment.newInstance())
                     .commit();
         }
-        if (key == 1) {
+        else if (key == 1) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, DataCpiFragment.newInstance())
                     .commit();
         }
-        if (key == 2) {
+        else if (key == 2) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, DataCategCpiFragment.newInstance())
                     .commit();
         }
-        if (key == 3) {
+        else if (key == 3) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, DataGppSakaeoFragment.newInstance())
+                    .commit();
+        }
+        else if (key == 4) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, DataGppProvinceFragment.newInstance())
                     .commit();
         }
     }

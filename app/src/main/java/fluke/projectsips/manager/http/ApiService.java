@@ -2,9 +2,12 @@ package fluke.projectsips.manager.http;
 
 import fluke.projectsips.dao.CpiCategCollectionDao;
 import fluke.projectsips.dao.CpiCollectionDao;
+import fluke.projectsips.dao.GppProvinceCollectionDao;
 import fluke.projectsips.dao.GppSakaeoCollectionDao;
+import fluke.projectsips.dao.GrpCollectionDao;
 import fluke.projectsips.dao.PopulationCollectionDao;
 import fluke.projectsips.dao.ProvinceCollectionDao;
+import fluke.projectsips.dao.RegionCollectionDao;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -26,7 +29,20 @@ public interface ApiService {
     Call<GppSakaeoCollectionDao> getGppSakaeo(@Query("type") int type,
                                               @Query("year") int year);
 
+    @GET("gpp-province.php")
+    Call<GppProvinceCollectionDao> getGppProvince(@Query("type") int type,
+                                                  @Query("year") int year,
+                                                  @Query("provinceID") int provinceID);
+
+    @GET("grp.php")
+    Call<GrpCollectionDao> getGrp(@Query("type") int type,
+                                  @Query("year") int year,
+                                  @Query("region") int region);
+
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();
+
+    @POST("region.php")
+    Call<RegionCollectionDao> getRegion();
 
 }

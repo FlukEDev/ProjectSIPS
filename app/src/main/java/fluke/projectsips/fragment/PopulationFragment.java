@@ -36,101 +36,9 @@ public class PopulationFragment extends Fragment {
     private int sum;
     private int district;
     private int year;
-    AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            int val = 543;
-            if (position == -1) {
-                sum = 0;
-            } else {
-                try {
-                    sum = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
-                    year = Integer.parseInt(parent.getSelectedItem().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
     private String populationMale;
     private String populationFemale;
     private String districtName;
-    /******
-     * Listener
-     *********/
-
-    View.OnClickListener searchClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Call<PopulationCollectionDao> call = HttpManager.getInstance().getService().getPopulation(district, sum);
-            call.enqueue(new Callback<PopulationCollectionDao>() {
-                @Override
-                public void onResponse(Call<PopulationCollectionDao> call, Response<PopulationCollectionDao> response) {
-
-                    if (response.isSuccessful()) {
-                        PopulationCollectionDao dao = response.body();
-                        if (district != 0 && sum != 0) {
-                            ArrayList<String> listMale = new ArrayList<String>();
-                            for (i = 0; i < dao.getData().size(); i++) {
-                                populationMale = dao.getData().get(i).getPopulationMale();
-                                listMale.add(populationMale);
-                            }
-                            ArrayList<String> listFemale = new ArrayList<String>();
-                            for (i = 0; i < dao.getData().size(); i++) {
-                                populationFemale = dao.getData().get(i).getPopulationFemale();
-                                listFemale.add(populationFemale);
-                            }
-
-                            Intent intent = new Intent(getContext(), DataActivity.class);
-                            intent.putExtra("key", 0);
-                            intent.putStringArrayListExtra("listMale", listMale);
-                            intent.putStringArrayListExtra("listFemale", listFemale);
-                            intent.putExtra("districtName", districtName);
-                            intent.putExtra("year", year);
-
-                            startActivity(intent);
-
-                        } else {
-                            MsgBox();
-                        }
-                    } else {
-                        try {
-                            Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<PopulationCollectionDao> call, Throwable t) {
-                    Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-    };
-    AdapterView.OnItemSelectedListener selectDistrict = new AdapterView.OnItemSelectedListener() {
-
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            int val = 1;
-            district = position + val;
-            districtName = parent.getSelectedItem().toString();
-            //Toast.makeText(getActivity(), "District Name = " + districtName, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
 
     public PopulationFragment() {
         super();
@@ -214,4 +122,97 @@ public class PopulationFragment extends Fragment {
         alertDialog.show();
     }
 
+    /******
+     * Listener
+     *********/
+
+    View.OnClickListener searchClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Call<PopulationCollectionDao> call = HttpManager.getInstance().getService().getPopulation(district, sum);
+            call.enqueue(new Callback<PopulationCollectionDao>() {
+                @Override
+                public void onResponse(Call<PopulationCollectionDao> call, Response<PopulationCollectionDao> response) {
+
+                    if (response.isSuccessful()) {
+                        PopulationCollectionDao dao = response.body();
+                        if (district != 0 && sum != 0) {
+                            ArrayList<String> listMale = new ArrayList<String>();
+                            for (i = 0; i < dao.getData().size(); i++) {
+                                populationMale = dao.getData().get(i).getPopulationMale();
+                                listMale.add(populationMale);
+                            }
+                            ArrayList<String> listFemale = new ArrayList<String>();
+                            for (i = 0; i < dao.getData().size(); i++) {
+                                populationFemale = dao.getData().get(i).getPopulationFemale();
+                                listFemale.add(populationFemale);
+                            }
+
+                            Intent intent = new Intent(getContext(), DataActivity.class);
+                            intent.putExtra("key", 0);
+                            intent.putStringArrayListExtra("listMale", listMale);
+                            intent.putStringArrayListExtra("listFemale", listFemale);
+                            intent.putExtra("districtName", districtName);
+                            intent.putExtra("year", year);
+
+                            startActivity(intent);
+
+                        } else {
+                            MsgBox();
+                        }
+                    } else {
+                        try {
+                            Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<PopulationCollectionDao> call, Throwable t) {
+                    Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    };
+    AdapterView.OnItemSelectedListener selectDistrict = new AdapterView.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            int val = 1;
+            district = position + val;
+            districtName = parent.getSelectedItem().toString();
+            //Toast.makeText(getActivity(), "District Name = " + districtName, Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
+
+    AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            int val = 543;
+            if (position == -1) {
+                sum = 0;
+            } else {
+                try {
+                    sum = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
+                    year = Integer.parseInt(parent.getSelectedItem().toString());
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> parent) {
+
+        }
+    };
 }

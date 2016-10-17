@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import fluke.projectsips.R;
 
 
-public class DataGppSakaeoFragment extends Fragment {
+public class DataGppProvinceFragment extends Fragment {
 
     private String little;
     private TextView tvLittle;
@@ -32,12 +32,12 @@ public class DataGppSakaeoFragment extends Fragment {
     private int type;
     private int i;
 
-    public DataGppSakaeoFragment() {
+    public DataGppProvinceFragment() {
         super();
     }
 
-    public static DataGppSakaeoFragment newInstance() {
-        DataGppSakaeoFragment fragment = new DataGppSakaeoFragment();
+    public static DataGppProvinceFragment newInstance() {
+        DataGppProvinceFragment fragment = new DataGppProvinceFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -55,7 +55,7 @@ public class DataGppSakaeoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_data_gpp_sakaeo, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_data_gpp_province, container, false);
         initInstances(rootView, savedInstanceState);
         showData();
         return rootView;
@@ -72,20 +72,21 @@ public class DataGppSakaeoFragment extends Fragment {
 
         tvLittle.setText(little);
 
-        ArrayList<String> listGppSakaeoName = new ArrayList<>();
+        ArrayList<String> listGppProvinceName = new ArrayList<>();
         for (String tamp : name) {
-            listGppSakaeoName.add(tamp);
+            listGppProvinceName.add(tamp);
         }
 
-        ArrayList<Integer> listGppSakaeoPrice = new ArrayList<>();
+        ArrayList<Integer> listGppProvincePrice = new ArrayList<>();
         for (Integer tamp : price) {
-            listGppSakaeoPrice.add(tamp);
+            listGppProvincePrice.add(tamp);
         }
 
         ArrayList<Integer> listPrice = new ArrayList<>();
         for (i = 0; i < price.size(); i++) {
             listPrice.add(price.get(i));
         }
+
 
         // ภาคการเกษตร
         TableRow rowAgricultural = new TableRow(getContext());
@@ -102,8 +103,8 @@ public class DataGppSakaeoFragment extends Fragment {
 
         for (int i = 0; i < 2; i++) {
             TableRow rowDataAgricultural = new TableRow(getContext());
-            String name = listGppSakaeoName.get(i);
-            String price = String.valueOf(listGppSakaeoPrice.get(i));
+            String name = listGppProvinceName.get(i);
+            String price = String.valueOf(listGppProvincePrice.get(i));
             TextView trName = new TextView(getContext());
             trName.setTextColor(Color.parseColor("#FFFFFF"));
             trName.setText("  " + name);
@@ -134,10 +135,10 @@ public class DataGppSakaeoFragment extends Fragment {
         rowNonAgricultural.addView(sumNonAgricultural);
         tableData.addView(rowNonAgricultural);
 
-        for (int i = 2; i < listGppSakaeoPrice.size(); i++) {
+        for (int i = 2; i < listGppProvincePrice.size(); i++) {
             TableRow rowDataNonAgricultural = new TableRow(getContext());
-            String name = listGppSakaeoName.get(i);
-            String price = String.valueOf(listGppSakaeoPrice.get(i));
+            String name = listGppProvinceName.get(i);
+            String price = String.valueOf(listGppProvincePrice.get(i));
             TextView trName = new TextView(getContext());
             trName.setTextColor(Color.parseColor("#FFFFFF"));
             trName.setText("  " + name);
@@ -197,7 +198,6 @@ public class DataGppSakaeoFragment extends Fragment {
 
         tvLittle = (TextView) rootView.findViewById(R.id.little);
         tableData = (TableLayout) rootView.findViewById(R.id.tableData);
-
     }
 
     @Override

@@ -34,32 +34,6 @@ public class GppSakaeoFragment extends Fragment {
     private MaterialSpinner sYear;
     private int sumYear;
     private int year;
-    /*********
-     * Listeners
-     **********/
-
-    AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
-            int val = 543;
-            if (position == -1) {
-                sumYear = 0;
-            } else {
-                try {
-                    sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
-                    //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
-                    year = Integer.parseInt(parent.getSelectedItem().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> adapterView) {
-
-        }
-    };
     private RadioGroup rgType;
     private Button btnSearch;
     private int i;
@@ -67,26 +41,90 @@ public class GppSakaeoFragment extends Fragment {
     private String gppSakaeoPrice;
     private String population;
     private int type = 1;
-    RadioGroup.OnCheckedChangeListener selectType = new RadioGroup.OnCheckedChangeListener() {
-        @Override
-        public void onCheckedChanged(RadioGroup radioGroup, int i) {
-            int id = rgType.getCheckedRadioButtonId();
-            switch (id) {
-                case R.id.rbYearPrice:
-                    type = 1;
-                    //Toast.makeText(getContext(), "Type = " + type, Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.rbStablePrice:
-                    type = 2;
-                    //Toast.makeText(getContext(), "Type = " + type, Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
     private double price;
     private int sum;
+
+    public GppSakaeoFragment() {
+        super();
+    }
+
+    public static GppSakaeoFragment newInstance() {
+        GppSakaeoFragment fragment = new GppSakaeoFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
+
+        if (savedInstanceState != null)
+            onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_gpp_sakaeo, container, false);
+        initInstances(rootView, savedInstanceState);
+        return rootView;
+    }
+
+    @SuppressWarnings("UnusedParameters")
+    private void init(Bundle savedInstanceState) {
+        // Init Fragment level's variable(s) here
+    }
+
+    @SuppressWarnings("UnusedParameters")
+    private void initInstances(View rootView, Bundle savedInstanceState) {
+        // Init 'View' instance(s) with rootView.findViewById here
+        // Note: State of variable initialized here could not be saved
+        //       in onSavedInstanceState
+
+        String[] year = getResources().getStringArray(R.array.gpp_year);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, year);
+        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sYear = (MaterialSpinner) rootView.findViewById(R.id.sYear);
+        sYear.setAdapter(adapterYear);
+        sYear.setOnItemSelectedListener(selectYear);
+
+        rgType = (RadioGroup) rootView.findViewById(R.id.rgType);
+        rgType.setOnCheckedChangeListener(selectType);
+
+        btnSearch = (Button) rootView.findViewById(R.id.submit);
+        btnSearch.setOnClickListener(searchClick);
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save Instance (Fragment level's variables) State here
+    }
+
+    @SuppressWarnings("UnusedParameters")
+    private void onRestoreInstanceState(Bundle savedInstanceState) {
+        // Restore Instance (Fragment level's variables) State here
+    }
+
+    private void MsgBox() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setMessage("คุณยังไม่ได้ทำการเลือก ปี หรือ ประเภท ที่ต้องการดูข้อมูล");
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    /*********
+     * Listeners
+     **********/
+
     View.OnClickListener searchClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -179,80 +217,45 @@ public class GppSakaeoFragment extends Fragment {
         }
     };
 
-    public GppSakaeoFragment() {
-        super();
-    }
-
-    public static GppSakaeoFragment newInstance() {
-        GppSakaeoFragment fragment = new GppSakaeoFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init(savedInstanceState);
-
-        if (savedInstanceState != null)
-            onRestoreInstanceState(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_gpp_sakaeo, container, false);
-        initInstances(rootView, savedInstanceState);
-        return rootView;
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private void init(Bundle savedInstanceState) {
-        // Init Fragment level's variable(s) here
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private void initInstances(View rootView, Bundle savedInstanceState) {
-        // Init 'View' instance(s) with rootView.findViewById here
-        // Note: State of variable initialized here could not be saved
-        //       in onSavedInstanceState
-
-        String[] year = getResources().getStringArray(R.array.gpp_year);
-        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, year);
-        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sYear = (MaterialSpinner) rootView.findViewById(R.id.sYear);
-        sYear.setAdapter(adapterYear);
-        sYear.setOnItemSelectedListener(selectYear);
-
-        rgType = (RadioGroup) rootView.findViewById(R.id.rgType);
-        rgType.setOnCheckedChangeListener(selectType);
-
-        btnSearch = (Button) rootView.findViewById(R.id.submit);
-        btnSearch.setOnClickListener(searchClick);
-
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        // Save Instance (Fragment level's variables) State here
-    }
-
-    @SuppressWarnings("UnusedParameters")
-    private void onRestoreInstanceState(Bundle savedInstanceState) {
-        // Restore Instance (Fragment level's variables) State here
-    }
-
-    private void MsgBox() {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setMessage("คุณยังไม่ได้ทำการเลือก ปี หรือ ประเภท ที่ต้องการดูข้อมูล");
-        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
+    RadioGroup.OnCheckedChangeListener selectType = new RadioGroup.OnCheckedChangeListener() {
+        @Override
+        public void onCheckedChanged(RadioGroup radioGroup, int i) {
+            int id = rgType.getCheckedRadioButtonId();
+            switch (id) {
+                case R.id.rbYearPrice:
+                    type = 1;
+                    //Toast.makeText(getContext(), "Type = " + type, Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.rbStablePrice:
+                    type = 2;
+                    //Toast.makeText(getContext(), "Type = " + type, Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
             }
-        });
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
-    }
+        }
+    };
+
+    AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
+            int val = 543;
+            if (position == -1) {
+                sumYear = 0;
+            } else {
+                try {
+                    sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
+                    //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
+                    year = Integer.parseInt(parent.getSelectedItem().toString());
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
+    };
 }

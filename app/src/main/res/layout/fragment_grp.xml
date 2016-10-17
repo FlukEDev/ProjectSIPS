@@ -60,7 +60,7 @@
             android:textSize="@dimen/body" />
 
         <fr.ganfra.materialspinner.MaterialSpinner
-            android:id="@+id/sZone"
+            android:id="@+id/sRegion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/padding"
@@ -75,11 +75,14 @@
         android:layout_height="wrap_content">
 
         <RadioGroup
+            android:id="@+id/rgType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checkedButton="@+id/rbYearPrice"
             android:padding="10dp">
 
             <RadioButton
+                android:id="@+id/rbYearPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="#000000"
@@ -88,6 +91,7 @@
                 android:textSize="@dimen/body" />
 
             <RadioButton
+                android:id="@+id/rbStablePrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="#000000"
