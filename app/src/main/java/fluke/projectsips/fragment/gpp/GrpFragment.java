@@ -1,6 +1,7 @@
 package fluke.projectsips.fragment.gpp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
+import fluke.projectsips.activity.DataActivity;
 import fluke.projectsips.dao.GrpCollectionDao;
 import fluke.projectsips.dao.RegionCollectionDao;
 import fluke.projectsips.manager.Contextor;
@@ -35,13 +37,16 @@ public class GrpFragment extends Fragment {
     private RadioGroup rgType;
     private Button btnSearch;
     private String region;
+    private String population;
     private int sumYear;
     private int year;
     private int type = 1;
     private int regionID;
     private String grpPrice;
     private String provinceName;
-    private String population;
+    private float price;
+    private int sum;
+    private String nameRegion;
 
     public GrpFragment() {
         super();
@@ -169,10 +174,14 @@ public class GrpFragment extends Fragment {
                         GrpCollectionDao dao = response.body();
                         if (sumYear != 0) {
                             if (type == 1) {
-                                ArrayList<String> listPrice = new ArrayList<String>();
+
+                                ArrayList<Integer> listPrice = new ArrayList<Integer>();
                                 for (int i = 0; i < dao.getData().size(); i++) {
                                     grpPrice = dao.getData().get(i).getSUMEconomicGPPProvinceTransactionYearPrice();
-                                    listPrice.add(grpPrice);
+                                    price = Float.parseFloat(grpPrice.trim());
+                                    int val = 1000000;
+                                    sum = Math.round(price / val);
+                                    listPrice.add(sum);
                                 }
 
                                 ArrayList<String> listProvinceName = new ArrayList<String>();
@@ -181,14 +190,33 @@ public class GrpFragment extends Fragment {
                                     listProvinceName.add(provinceName);
                                 }
 
-                                population = dao.getData().get(0).getPopulation();
+                                ArrayList<String> listPopulation = new ArrayList<String>();
+                                for (int i = 0; i< dao.getData().size(); i++) {
+                                    population = dao.getData().get(i).getPopulation();
+                                    listPopulation.add(population);
+                                }
+
+                                String little = "ผลิตภัณฑ์มวลรวมใน " + nameRegion +" (GRP) ตามราคาประจำปี พ.ศ. "+ year;
+
+                                Intent intent = new Intent(getContext(), DataActivity.class);
+                                intent.putExtra("key", 5);
+                                intent.putStringArrayListExtra("name", listProvinceName);
+                                intent.putIntegerArrayListExtra("price", listPrice);
+                                intent.putStringArrayListExtra("population", listPopulation);
+                                intent.putExtra("little", little);
+                                intent.putExtra("region", nameRegion);
+
+                                startActivity(intent);
                             }
 
                             if (type == 2) {
-                                ArrayList<String> listPrice = new ArrayList<String>();
+                                ArrayList<Integer> listPrice = new ArrayList<Integer>();
                                 for (int i = 0; i < dao.getData().size(); i++) {
                                     grpPrice = dao.getData().get(i).getSUMEconomicGPPProvinceTransactionStablePrice();
-                                    listPrice.add(grpPrice);
+                                    price = Float.parseFloat(grpPrice.trim());
+                                    int val = 1000000;
+                                    sum = Math.round(price / val);
+                                    listPrice.add(sum);
                                 }
 
                                 ArrayList<String> listProvinceName = new ArrayList<String>();
@@ -197,7 +225,23 @@ public class GrpFragment extends Fragment {
                                     listProvinceName.add(provinceName);
                                 }
 
-                                population = dao.getData().get(0).getPopulation();
+                                ArrayList<String> listPopulation = new ArrayList<String>();
+                                for (int i = 0; i< dao.getData().size(); i++) {
+                                    population = dao.getData().get(i).getPopulation();
+                                    listPopulation.add(population);
+                                }
+
+                                String little = "ผลิตภัณฑ์มวลรวมใน" + nameRegion + "(GRP) ตามระดับราคาคงที่ พ.ศ. " + year;
+
+                                Intent intent = new Intent(getContext(), DataActivity.class);
+                                intent.putExtra("key", 5);
+                                intent.putStringArrayListExtra("name", listProvinceName);
+                                intent.putIntegerArrayListExtra("price", listPrice);
+                                intent.putStringArrayListExtra("population", listPopulation);
+                                intent.putExtra("little", little);
+                                intent.putExtra("region", nameRegion);
+
+                                startActivity(intent);
                             }
                         } else {
                             MsgBox();
@@ -246,6 +290,8 @@ public class GrpFragment extends Fragment {
         @Override
         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
             regionID = position + 1;
+            nameRegion = parent.getItemAtPosition(position).toString();
+            //Toast.makeText(getContext(), "Name : " + nameRegion, Toast.LENGTH_SHORT).show();
         }
 
         @Override
