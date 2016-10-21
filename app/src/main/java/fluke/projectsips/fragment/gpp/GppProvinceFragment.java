@@ -172,7 +172,7 @@ public class GppProvinceFragment extends Fragment {
                 public void onResponse(Call<GppProvinceCollectionDao> call, Response<GppProvinceCollectionDao> response) {
                     if (response.isSuccessful()) {
                         GppProvinceCollectionDao dao = response.body();
-                        if (sumYear != 0) {
+                        if (sumYear != 0 && provinceID != 0) {
                             if (type == 1) {
                                 ArrayList<String> listGppProvinceName = new ArrayList<String>();
                                 for (i = 0; i < dao.getData().size(); i++) {

@@ -7,11 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import fluke.projectsips.R;
-import fluke.projectsips.fragment.gpp.GdpBuraphaGroupFragment;
 import fluke.projectsips.fragment.gpp.GdpFragment;
 import fluke.projectsips.fragment.gpp.GdpUserFragment;
 import fluke.projectsips.fragment.gpp.GppProvinceFragment;
 import fluke.projectsips.fragment.gpp.GppSakaeoFragment;
+import fluke.projectsips.fragment.gpp.GrpBuraphaFragment;
 import fluke.projectsips.fragment.gpp.GrpFragment;
 
 public class GppActivity extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class GppActivity extends AppCompatActivity {
                     .commit();
         } else if (gppKey == 3) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.contentContainer, GdpBuraphaGroupFragment.newInstance())
+                    .add(R.id.contentContainer, GrpBuraphaFragment.newInstance())
                     .commit();
         } else if (gppKey == 4) {
             getSupportFragmentManager().beginTransaction()

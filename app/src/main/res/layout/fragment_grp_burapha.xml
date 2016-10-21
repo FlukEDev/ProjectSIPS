@@ -47,25 +47,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <RadioGroup
+            android:id="@+id/rgType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checkedButton="@+id/rbYearPrice"
             android:padding="10dp">
 
             <RadioButton
+                android:id="@+id/rbYearPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="#000000"
-                android:text="ณ ราคาประจำปี (GPP at Current Market Prices)"
+                android:text="ณ ราคาประจำปี (GRP at Current Market Prices)"
                 android:textColor="@color/font"
                 android:textSize="@dimen/body" />
 
             <RadioButton
+                android:id="@+id/rbStablePrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:buttonTint="#000000"
-                android:text="ณ ระดับราคาคงที่ (GPP at Constant Prices)"
+                android:text="ณ ระดับราคาคงที่ (GRP at Constant Prices)"
                 android:textColor="@color/font"
                 android:textSize="@dimen/body" />
 

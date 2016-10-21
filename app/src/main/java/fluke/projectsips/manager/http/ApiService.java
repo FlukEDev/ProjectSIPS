@@ -4,6 +4,7 @@ import fluke.projectsips.dao.CpiCategCollectionDao;
 import fluke.projectsips.dao.CpiCollectionDao;
 import fluke.projectsips.dao.GppProvinceCollectionDao;
 import fluke.projectsips.dao.GppSakaeoCollectionDao;
+import fluke.projectsips.dao.GrpBuraphaCollectionDao;
 import fluke.projectsips.dao.GrpCollectionDao;
 import fluke.projectsips.dao.PopulationCollectionDao;
 import fluke.projectsips.dao.ProvinceCollectionDao;
@@ -38,6 +39,10 @@ public interface ApiService {
     Call<GrpCollectionDao> getGrp(@Query("type") int type,
                                   @Query("year") int year,
                                   @Query("region") int region);
+
+    @GET("grp-burapha.php")
+    Call<GrpBuraphaCollectionDao> getGrpBurapha(@Query("type") int type,
+                                                @Query("year") int year);
 
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();

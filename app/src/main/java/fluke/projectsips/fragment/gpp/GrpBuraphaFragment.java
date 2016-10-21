@@ -20,8 +20,7 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 import fluke.projectsips.activity.DataActivity;
-import fluke.projectsips.dao.GrpCollectionDao;
-import fluke.projectsips.dao.RegionCollectionDao;
+import fluke.projectsips.dao.GrpBuraphaCollectionDao;
 import fluke.projectsips.manager.Contextor;
 import fluke.projectsips.manager.HttpManager;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -30,30 +29,21 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class GrpFragment extends Fragment {
+public class GrpBuraphaFragment extends Fragment {
 
     private MaterialSpinner sYear;
-    private MaterialSpinner sRegion;
     private RadioGroup rgType;
     private Button btnSearch;
-    private String region;
-    private String population;
+    private int type = 1;
     private int sumYear;
     private int year;
-    private int type = 1;
-    private int regionID;
-    private String grpPrice;
-    private String provinceName;
-    private float price;
-    private int sum;
-    private String nameRegion;
 
-    public GrpFragment() {
+    public GrpBuraphaFragment() {
         super();
     }
 
-    public static GrpFragment newInstance() {
-        GrpFragment fragment = new GrpFragment();
+    public static GrpBuraphaFragment newInstance() {
+        GrpBuraphaFragment fragment = new GrpBuraphaFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -71,7 +61,7 @@ public class GrpFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_grp, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_grp_burapha, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -82,43 +72,10 @@ public class GrpFragment extends Fragment {
     }
 
     @SuppressWarnings("UnusedParameters")
-    private void initInstances(final View rootView, Bundle savedInstanceState) {
+    private void initInstances(View rootView, Bundle savedInstanceState) {
         // Init 'View' instance(s) with rootView.findViewById here
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
-
-        Call<RegionCollectionDao> call = HttpManager.getInstance().getService().getRegion();
-        call.enqueue(new Callback<RegionCollectionDao>() {
-            @Override
-            public void onResponse(Call<RegionCollectionDao> call, Response<RegionCollectionDao> response) {
-                if (response.isSuccessful()) {
-                    RegionCollectionDao daoRegion = response.body();
-                    ArrayList<String> listRegion = new ArrayList<String>();
-                    for (int i = 0; i < daoRegion.getData().size(); i++) {
-                        region = daoRegion.getData().get(i).getRegionName();
-                        listRegion.add(region);
-                    }
-
-                    ArrayAdapter<String> adapterRegion = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, listRegion);
-                    adapterRegion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    sRegion = (MaterialSpinner) rootView.findViewById(R.id.sRegion);
-                    sRegion.setAdapter(adapterRegion);
-                    sRegion.setOnItemSelectedListener(selectRegion);
-
-                } else {
-                    try {
-                        Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RegionCollectionDao> call, Throwable t) {
-                Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
 
         String[] year = getResources().getStringArray(R.array.gpp_year);
         ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, year);
@@ -132,6 +89,7 @@ public class GrpFragment extends Fragment {
 
         btnSearch = (Button) rootView.findViewById(R.id.submit);
         btnSearch.setOnClickListener(searchClick);
+
     }
 
     @Override
@@ -147,7 +105,7 @@ public class GrpFragment extends Fragment {
 
     private void MsgBox() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-        alertDialogBuilder.setMessage("คุณยังไม่ได้ทำการเลือก ปี ภาค หรือ ประเภท ที่ต้องการดูข้อมูล");
+        alertDialogBuilder.setMessage("คุณยังไม่ได้ทำการเลือก ปี หรือ ประเภท ที่ต้องการดูข้อมูล");
         alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -157,24 +115,28 @@ public class GrpFragment extends Fragment {
         alertDialog.show();
     }
 
-    /***************
+    private String grpPrice;
+    private float price;
+    private int sum;
+    private String provinceName;
+    private String population;
+    /************
      *
      * Listeners
      *
-     **************/
+     ************/
 
     View.OnClickListener searchClick = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-            Call<GrpCollectionDao> call = HttpManager.getInstance().getService().getGrp(type, sumYear, regionID);
-            call.enqueue(new Callback<GrpCollectionDao>() {
+        public void onClick(View view) {
+            Call<GrpBuraphaCollectionDao> call = HttpManager.getInstance().getService().getGrpBurapha(type, sumYear);
+            call.enqueue(new Callback<GrpBuraphaCollectionDao>() {
                 @Override
-                public void onResponse(Call<GrpCollectionDao> call, Response<GrpCollectionDao> response) {
+                public void onResponse(Call<GrpBuraphaCollectionDao> call, Response<GrpBuraphaCollectionDao> response) {
                     if (response.isSuccessful()) {
-                        GrpCollectionDao dao = response.body();
-                        if (sumYear != 0 && regionID != 0) {
+                        GrpBuraphaCollectionDao dao = response.body();
+                        if (sumYear != 0) {
                             if (type == 1) {
-
                                 ArrayList<Integer> listPrice = new ArrayList<Integer>();
                                 for (int i = 0; i < dao.getData().size(); i++) {
                                     grpPrice = dao.getData().get(i).getSUMEconomicGPPProvinceTransactionYearPrice();
@@ -191,20 +153,19 @@ public class GrpFragment extends Fragment {
                                 }
 
                                 ArrayList<String> listPopulation = new ArrayList<String>();
-                                for (int i = 0; i< dao.getData().size(); i++) {
+                                for (int i = 0; i < dao.getData().size(); i++) {
                                     population = dao.getData().get(i).getPopulation();
                                     listPopulation.add(population);
                                 }
 
-                                String little = "ผลิตภัณฑ์มวลรวมใน " + nameRegion +" (GRP) ตามราคาประจำปี พ.ศ. "+ year;
+                                String little = "ผลิตภัณฑ์มวลรวมในกลุ่มเบญจบูรพาสุวรรณภูมิ (GRP) ตามราคาประจำปี พ.ศ. " + year;
 
                                 Intent intent = new Intent(getContext(), DataActivity.class);
-                                intent.putExtra("key", 5);
+                                intent.putExtra("key", 6);
                                 intent.putStringArrayListExtra("name", listProvinceName);
                                 intent.putIntegerArrayListExtra("price", listPrice);
                                 intent.putStringArrayListExtra("population", listPopulation);
                                 intent.putExtra("little", little);
-                                intent.putExtra("region", nameRegion);
 
                                 startActivity(intent);
                             }
@@ -226,26 +187,26 @@ public class GrpFragment extends Fragment {
                                 }
 
                                 ArrayList<String> listPopulation = new ArrayList<String>();
-                                for (int i = 0; i< dao.getData().size(); i++) {
+                                for (int i = 0; i < dao.getData().size(); i++) {
                                     population = dao.getData().get(i).getPopulation();
                                     listPopulation.add(population);
                                 }
 
-                                String little = "ผลิตภัณฑ์มวลรวมใน" + nameRegion + "(GRP) ตามระดับราคาคงที่ พ.ศ. " + year;
+                                String little = "ผลิตภัณฑ์มวลรวมในกลุ่มเบญจบูรพาสุวรรณภูมิ (GRP) ตามระดับราคาคงที่ พ.ศ. " + year;
 
                                 Intent intent = new Intent(getContext(), DataActivity.class);
-                                intent.putExtra("key", 5);
+                                intent.putExtra("key", 6);
                                 intent.putStringArrayListExtra("name", listProvinceName);
                                 intent.putIntegerArrayListExtra("price", listPrice);
                                 intent.putStringArrayListExtra("population", listPopulation);
                                 intent.putExtra("little", little);
-                                intent.putExtra("region", nameRegion);
 
                                 startActivity(intent);
                             }
                         } else {
                             MsgBox();
                         }
+
                     } else {
                         try {
                             Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -256,16 +217,17 @@ public class GrpFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<GrpCollectionDao> call, Throwable t) {
+                public void onFailure(Call<GrpBuraphaCollectionDao> call, Throwable t) {
                     Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
+
         }
     };
 
     AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
             int val = 543;
             if (position == -1) {
                 sumYear = 0;
@@ -281,28 +243,14 @@ public class GrpFragment extends Fragment {
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> parent) {
-
-        }
-    };
-
-    AdapterView.OnItemSelectedListener selectRegion = new AdapterView.OnItemSelectedListener() {
-        @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-            regionID = position + 1;
-            nameRegion = parent.getItemAtPosition(position).toString();
-            //Toast.makeText(getContext(), "Name : " + nameRegion, Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNothingSelected(AdapterView<?> parent) {
+        public void onNothingSelected(AdapterView<?> adapterView) {
 
         }
     };
 
     RadioGroup.OnCheckedChangeListener selectType = new RadioGroup.OnCheckedChangeListener() {
         @Override
-        public void onCheckedChanged(RadioGroup group, int checkedId) {
+        public void onCheckedChanged(RadioGroup radioGroup, int i) {
             int id = rgType.getCheckedRadioButtonId();
             switch (id) {
                 case R.id.rbYearPrice:
