@@ -2,6 +2,7 @@ package fluke.projectsips.manager.http;
 
 import fluke.projectsips.dao.CpiCategCollectionDao;
 import fluke.projectsips.dao.CpiCollectionDao;
+import fluke.projectsips.dao.GdpCollectionDao;
 import fluke.projectsips.dao.GppProvinceCollectionDao;
 import fluke.projectsips.dao.GppSakaeoCollectionDao;
 import fluke.projectsips.dao.GrpBuraphaCollectionDao;
@@ -43,6 +44,10 @@ public interface ApiService {
     @GET("grp-burapha.php")
     Call<GrpBuraphaCollectionDao> getGrpBurapha(@Query("type") int type,
                                                 @Query("year") int year);
+
+    @GET("gdp.php")
+    Call<GdpCollectionDao> getGdp(@Query("type") int type,
+                                  @Query("year") int year);
 
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();
