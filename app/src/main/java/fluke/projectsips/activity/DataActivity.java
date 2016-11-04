@@ -14,6 +14,7 @@ import fluke.projectsips.fragment.data.DataGppProvinceFragment;
 import fluke.projectsips.fragment.data.DataGppSakaeoFragment;
 import fluke.projectsips.fragment.data.DataGrpBuraphaFragment;
 import fluke.projectsips.fragment.data.DataGrpFragment;
+import fluke.projectsips.fragment.data.DataLfpLaborSex;
 import fluke.projectsips.fragment.data.DataPopulationFragment;
 
 public class DataActivity extends AppCompatActivity {
@@ -69,6 +70,11 @@ public class DataActivity extends AppCompatActivity {
         else if (key == 7) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, DataGdpFragment.newInstance())
+                    .commit();
+        }
+        else if (key == 8) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, DataLfpLaborSex.newInstance())
                     .commit();
         }
     }

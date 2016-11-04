@@ -7,6 +7,7 @@ import fluke.projectsips.dao.GppProvinceCollectionDao;
 import fluke.projectsips.dao.GppSakaeoCollectionDao;
 import fluke.projectsips.dao.GrpBuraphaCollectionDao;
 import fluke.projectsips.dao.GrpCollectionDao;
+import fluke.projectsips.dao.LfpLaborSexCollectionDao;
 import fluke.projectsips.dao.PopulationCollectionDao;
 import fluke.projectsips.dao.ProvinceCollectionDao;
 import fluke.projectsips.dao.RegionCollectionDao;
@@ -48,6 +49,10 @@ public interface ApiService {
     @GET("gdp.php")
     Call<GdpCollectionDao> getGdp(@Query("type") int type,
                                   @Query("year") int year);
+
+    @GET("labor-sex.php")
+    Call<LfpLaborSexCollectionDao> getLaborSex(@Query("year") int year,
+                                               @Query("quarter") int quarter);
 
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();

@@ -37,6 +37,11 @@ public class GdpFragment extends Fragment {
     private int sumYear;
     private int year;
     private int type = 1;
+    private String grpPrice;
+    private float price;
+    private int sum;
+    private String provinceName;
+    private String population;
 
     public GdpFragment() {
         super();
@@ -115,11 +120,6 @@ public class GdpFragment extends Fragment {
         alertDialog.show();
     }
 
-    private String grpPrice;
-    private float price;
-    private int sum;
-    private String provinceName;
-    private String population;
     /**************
      *
      * Listeners

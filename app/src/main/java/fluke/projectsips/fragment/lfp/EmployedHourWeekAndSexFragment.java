@@ -15,6 +15,7 @@ import fr.ganfra.materialspinner.MaterialSpinner;
 public class EmployedHourWeekAndSexFragment extends Fragment {
 
     private MaterialSpinner sQuarter;
+    private MaterialSpinner sYear;
 
     public EmployedHourWeekAndSexFragment() {
         super();
@@ -55,11 +56,17 @@ public class EmployedHourWeekAndSexFragment extends Fragment {
         // Note: State of variable initialized here could not be saved
         //       in onSavedInstanceState
 
-        String[] quarter = {"ไตรมาส 1", "ไตรมาส 2", "ไตรมาส 3", "ไตรมาส 4"};
+        String[] quarter = getResources().getStringArray(R.array.quarter);
         ArrayAdapter<String> adapterQuarter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, quarter);
         adapterQuarter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sQuarter = (MaterialSpinner) rootView.findViewById(R.id.sQuarter);
         sQuarter.setAdapter(adapterQuarter);
+
+        String[] year = getResources().getStringArray(R.array.lfp_year);
+        ArrayAdapter<String> adapterYear = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, year);
+        adapterYear.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sYear = (MaterialSpinner) rootView.findViewById(R.id.sYear);
+        sYear.setAdapter(adapterYear);
     }
 
     @Override

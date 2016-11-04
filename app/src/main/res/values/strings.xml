@@ -40,4 +40,19 @@
         <item>2547</item>
     </string-array>
 
+    <string-array name="lfp_year">
+        <item>2555</item>
+        <item>2554</item>
+        <item>2553</item>
+        <item>2552</item>
+        <item>2551</item>
+    </string-array>
+
+    <string-array name="quarter">
+        <item>ไตรมาสที่ 1</item>
+        <item>ไตรมาสที่ 2</item>
+        <item>ไตรมาสที่ 3</item>
+        <item>ไตรมาสที่ 4</item>
+    </string-array>
+
 </resources>
