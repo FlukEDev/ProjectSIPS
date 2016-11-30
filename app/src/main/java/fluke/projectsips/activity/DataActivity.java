@@ -17,6 +17,7 @@ import fluke.projectsips.fragment.data.DataGrpFragment;
 import fluke.projectsips.fragment.data.DataLfpEduSex;
 import fluke.projectsips.fragment.data.DataLfpLaborCareer;
 import fluke.projectsips.fragment.data.DataLfpLaborEdu;
+import fluke.projectsips.fragment.data.DataLfpLaborIndustry;
 import fluke.projectsips.fragment.data.DataLfpLaborSex;
 import fluke.projectsips.fragment.data.DataPopulationFragment;
 
@@ -93,6 +94,11 @@ public class DataActivity extends AppCompatActivity {
         else if (key == 11) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, DataLfpLaborCareer.newInstance())
+                    .commit();
+        }
+        else if (key == 12) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, DataLfpLaborIndustry.newInstance())
                     .commit();
         }
     }

@@ -10,6 +10,7 @@ import fluke.projectsips.dao.GrpCollectionDao;
 import fluke.projectsips.dao.LfpEducationSexCollectionDao;
 import fluke.projectsips.dao.LfpLaborCareerCollectionDao;
 import fluke.projectsips.dao.LfpLaborEduCollectionDao;
+import fluke.projectsips.dao.LfpLaborIndustryCollectionDao;
 import fluke.projectsips.dao.LfpLaborSexCollectionDao;
 import fluke.projectsips.dao.PopulationCollectionDao;
 import fluke.projectsips.dao.ProvinceCollectionDao;
@@ -68,6 +69,10 @@ public interface ApiService {
     @GET("labor-career.php")
     Call<LfpLaborCareerCollectionDao> getLaborCareer(@Query("year") int year,
                                                      @Query("quarter") int quarter);
+
+    @GET("labor-industry.php")
+    Call<LfpLaborIndustryCollectionDao> getLaborIndustry(@Query("year") int year,
+                                                       @Query("quarter") int quarter);
 
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();
