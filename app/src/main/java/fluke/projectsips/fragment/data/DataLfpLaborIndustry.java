@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +31,9 @@ public class DataLfpLaborIndustry extends Fragment {
     private int allSum;
     private int allMale;
     private int allFemale;
+    private float percentAll;
+    private float percentMale;
+    private float percentFemale;
 
     public DataLfpLaborIndustry() {
         super();
@@ -161,6 +165,38 @@ public class DataLfpLaborIndustry extends Fragment {
             row.addView(tvFemale);
             tableData.addView(row);
         }
+
+        ArrayList<String> listPercentAll = new ArrayList<>();
+        for (int i = 0; i < listSum.size(); i++) {
+            Integer sumAll = listSum.get(i);
+            float sum = ((float)sumAll * 100F) / (float)allSum;
+            float cel = Math.round(sum * 10F);
+            percentAll = cel / 10F;
+            listPercentAll.add(String.valueOf(percentAll));
+        }
+
+        ArrayList<String> listPrecentMale = new ArrayList<>();
+        for (int i = 0; i < listSum.size(); i++) {
+            Integer sumAll = listMale.get(i);
+            float sum = ((float)sumAll * 100F) / (float)allSum;
+            float cel = Math.round(sum * 10F);
+            percentMale = cel / 10F;
+            listPrecentMale.add(String.valueOf(percentMale));
+        }
+
+        ArrayList<String> listPrecentFemale = new ArrayList<>();
+        for (int i = 0; i < listSum.size(); i++) {
+            Integer sumAll = listFemale.get(i);
+            float sum = ((float)sumAll * 100F) / (float)allSum;
+            float cel = Math.round(sum * 10F);
+            percentFemale = cel / 10F;
+            listPrecentFemale.add(String.valueOf(percentFemale));
+        }
+
+        Log.d("FLUKE", "percentAll : " + listPercentAll);
+        Log.d("FLUKE", "percentMale : " + listPrecentMale);
+        Log.d("FLUKE", "percentFemale : " + listPrecentFemale);
+
     }
 
     @SuppressWarnings("UnusedParameters")
