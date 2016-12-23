@@ -14,9 +14,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -91,11 +93,32 @@ public class DataLfpLaborSex extends Fragment {
         lables.add("ผู้มีอายุต่ำกว่า 15 ปี");
 
         PieDataSet dataSet = new PieDataSet(entries, "");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        dataSet.setXValuePosition(PieDataSet.ValuePosition.OUTSIDE_SLICE);
+        dataSet.setValueFormatter(new PercentFormatter());
+        dataSet.setValueLinePart1Length(0.5f);
+        dataSet.setValueLinePart2Length(0.5f);
+
         PieData data = new PieData(lables, dataSet);
+
+        Legend l = pieChart.getLegend();
+        l.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
+        l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.LEFT);
+        l.setOrientation(Legend.LegendOrientation.VERTICAL);
+        l.setDrawInside(false);
+        l.setXEntrySpace(8f);
+        l.setYEntrySpace(1f);
+        l.setYOffset(0f);
+        l.setFormSize(10f);
+        l.setTextColor(Color.WHITE);
+
         pieChart.setData(data);
         pieChart.setDescription("");
+        pieChart.setData(data);
+        pieChart.setUsePercentValues(true);
+        pieChart.setHoleRadius(30);
+        pieChart.setTransparentCircleRadius(40);
 
-        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
     }
 
     private void tableView() {

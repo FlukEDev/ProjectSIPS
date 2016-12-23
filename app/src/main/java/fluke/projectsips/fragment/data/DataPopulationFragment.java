@@ -63,25 +63,15 @@ public class DataPopulationFragment extends Fragment {
         districtName = intent.getStringExtra("districtName");
         year = intent.getIntExtra("year", 0);
 
-        ArrayList<String> listMaleData = new ArrayList<String>();
-        for (String tamp : listMale) {
-            listMaleData.add(tamp);
-        }
-
-        ArrayList<String> listFemaleData = new ArrayList<String>();
-        for (String tamp : listFemale) {
-            listFemaleData.add(tamp);
-        }
-
         ArrayList<Entry> male = new ArrayList<Entry>();
-        for (int i = 0; i < listMaleData.size(); i++) {
-            male.add(new Entry(Float.parseFloat(listMaleData.get(i)), i));
+        for (int i = 0; i < listMale.size(); i++) {
+            male.add(new Entry(Float.parseFloat(listMale.get(i)), i));
             //Log.d("FLUKE", "Num Male : " + male);
         }
 
         ArrayList<Entry> female = new ArrayList<Entry>();
-        for (int i = 0; i < listFemaleData.size(); i++) {
-            female.add(new Entry(Float.parseFloat(listFemaleData.get(i)), i));
+        for (int i = 0; i < listFemale.size(); i++) {
+            female.add(new Entry(Float.parseFloat(listFemale.get(i)), i));
             //Log.d("FLUKE", "Num Male : " + male);
         }
 
