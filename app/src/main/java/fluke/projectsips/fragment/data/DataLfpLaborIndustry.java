@@ -23,6 +23,7 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
+//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามอุตสาหกรรม และเพศ
 
 public class DataLfpLaborIndustry extends Fragment {
 

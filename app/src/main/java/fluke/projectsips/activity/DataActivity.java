@@ -19,6 +19,9 @@ import fluke.projectsips.fragment.data.DataLfpLaborCareer;
 import fluke.projectsips.fragment.data.DataLfpLaborEdu;
 import fluke.projectsips.fragment.data.DataLfpLaborIndustry;
 import fluke.projectsips.fragment.data.DataLfpLaborSex;
+import fluke.projectsips.fragment.data.DataLfpLaborWorkingHours;
+import fluke.projectsips.fragment.data.DataLfpLaborWorkingStatus;
+import fluke.projectsips.fragment.data.DataLfpNoWork;
 import fluke.projectsips.fragment.data.DataPopulationFragment;
 
 public class DataActivity extends AppCompatActivity {
@@ -99,6 +102,21 @@ public class DataActivity extends AppCompatActivity {
         else if (key == 12) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, DataLfpLaborIndustry.newInstance())
+                    .commit();
+        }
+        else if (key == 13) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, DataLfpLaborWorkingStatus.newInstance())
+                    .commit();
+        }
+        else if (key == 14) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, DataLfpLaborWorkingHours.newInstance())
+                    .commit();
+        }
+        else if (key == 15) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, DataLfpNoWork.newInstance())
                     .commit();
         }
     }

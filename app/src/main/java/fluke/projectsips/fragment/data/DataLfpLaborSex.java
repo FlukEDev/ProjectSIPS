@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
+//จำนวนและร้อยละของประชากร จำแนกตามสถานภาพแรงงาน และเพศ
 
 public class DataLfpLaborSex extends Fragment {
 
@@ -60,7 +61,7 @@ public class DataLfpLaborSex extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_data_flp_labor_sex, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_data_lfp_labor_sex, container, false);
         initInstances(rootView, savedInstanceState);
 
         Intent intent = getActivity().getIntent();

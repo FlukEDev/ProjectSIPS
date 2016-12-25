@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
+//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
 
 public class DataLfpLaborEdu extends Fragment {
 

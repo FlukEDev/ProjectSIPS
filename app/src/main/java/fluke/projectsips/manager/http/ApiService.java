@@ -11,7 +11,10 @@ import fluke.projectsips.dao.LfpEducationSexCollectionDao;
 import fluke.projectsips.dao.LfpLaborCareerCollectionDao;
 import fluke.projectsips.dao.LfpLaborEduCollectionDao;
 import fluke.projectsips.dao.LfpLaborIndustryCollectionDao;
+import fluke.projectsips.dao.LfpLaborNoWorkCollectionDao;
 import fluke.projectsips.dao.LfpLaborSexCollectionDao;
+import fluke.projectsips.dao.LfpLaborWorkingHoursCollectionDao;
+import fluke.projectsips.dao.LfpLaborWorkingStatusCollectionDao;
 import fluke.projectsips.dao.PopulationCollectionDao;
 import fluke.projectsips.dao.ProvinceCollectionDao;
 import fluke.projectsips.dao.RegionCollectionDao;
@@ -73,6 +76,18 @@ public interface ApiService {
     @GET("labor-industry.php")
     Call<LfpLaborIndustryCollectionDao> getLaborIndustry(@Query("year") int year,
                                                        @Query("quarter") int quarter);
+
+    @GET("labor-working-status.php")
+    Call<LfpLaborWorkingStatusCollectionDao> getLaborWorkingStatus(@Query("year") int year,
+                                                                   @Query("quarter") int quarter);
+
+    @GET("labor-working-hours.php")
+    Call<LfpLaborWorkingHoursCollectionDao> getLaborWorkingHours(@Query("year") int year,
+                                                                 @Query("quarter") int quarter);
+
+    @GET("labor-nowork.php")
+    Call<LfpLaborNoWorkCollectionDao> getLaborNoWork(@Query("year") int year,
+                                                     @Query("quarter") int quarter);
 
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();

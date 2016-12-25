@@ -46,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="อุตสาหกรรม"
+                            android:text="สถานะการทำงาน"
                             android:textColor="@color/font"
                             android:textSize="@dimen/subHeadLine"
                             android:textStyle="bold" />
@@ -87,7 +87,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.github.mikephil.charting.charts.BarChart
+                    <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
                         android:layout_height="300dp" />

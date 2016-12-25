@@ -25,25 +25,30 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
-//จำนวนและร้อยละของประชากรอายุ 15 ปีขึ้นไป จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
+//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามชั่วโมงการทำงานต่อสัปดาห์ และเพศ
 
-public class DataLfpEduSex extends Fragment {
+
+public class DataLfpLaborWorkingHours extends Fragment {
 
     private TableLayout tableData;
-    private ArrayList<String> name;
-    private ArrayList<Integer> male;
-    private ArrayList<Integer> female;
-    private ArrayList<Integer> sum;
     private PieChart pieChart;
     private String little;
     private TextView tvLittle;
+    private ArrayList<String> start;
+    private ArrayList<String> end;
+    private ArrayList<Integer> male;
+    private ArrayList<Integer> female;
+    private ArrayList<Integer> sum;
+    private int allSum;
+    private int allMale;
+    private int allFemale;
 
-    public DataLfpEduSex() {
+    public DataLfpLaborWorkingHours() {
         super();
     }
 
-    public static DataLfpEduSex newInstance() {
-        DataLfpEduSex fragment = new DataLfpEduSex();
+    public static DataLfpLaborWorkingHours newInstance() {
+        DataLfpLaborWorkingHours fragment = new DataLfpLaborWorkingHours();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -61,11 +66,12 @@ public class DataLfpEduSex extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_data_lfp_edu_sex, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_data_lfp_labor_working_hours, container, false);
         initInstances(rootView, savedInstanceState);
 
         Intent intent = getActivity().getIntent();
-        name = intent.getStringArrayListExtra("name");
+        start = intent.getStringArrayListExtra("start");
+        end = intent.getStringArrayListExtra("end");
         male = intent.getIntegerArrayListExtra("male");
         female = intent.getIntegerArrayListExtra("female");
         sum = intent.getIntegerArrayListExtra("sum");
@@ -75,34 +81,35 @@ public class DataLfpEduSex extends Fragment {
 
         tableView();
         ChartView();
+
         return rootView;
     }
 
     private void ChartView() {
+        ArrayList<String> listStart = new ArrayList<String>();
+        for (String tamp : start) {
+            listStart.add(tamp);
+        }
+
+        ArrayList<String> listEnd = new ArrayList<String>();
+        for (String tamp : end) {
+            listEnd.add(tamp);
+        }
+
         ArrayList<Integer> listSum = new ArrayList<Integer>();
         for (Integer tamp : sum) {
             listSum.add(tamp);
         }
 
         ArrayList<Entry> entries = new ArrayList<>();
-        entries.add(new Entry(listSum.get(0), 0));
-        entries.add(new Entry(listSum.get(1), 1));
-        entries.add(new Entry(listSum.get(2), 2));
-        entries.add(new Entry(listSum.get(3), 3));
-        entries.add(new Entry(listSum.get(4), 4));
-        entries.add(new Entry(listSum.get(8), 8));
-        entries.add(new Entry(listSum.get(12), 12));
-        entries.add(new Entry(listSum.get(13), 13));
+        for (int i = 0; i < listSum.size(); i++) {
+            entries.add(new Entry(listSum.get(i), i));
+        }
 
         ArrayList<String> lables = new ArrayList<>();
-        lables.add("1. ไม่มีการศึกษา");
-        lables.add("2. ต่ำกว่าประถมศึกษา");
-        lables.add("3. ประถมศึกษา");
-        lables.add("4. มัธยมศึกษาตอนต้น");
-        lables.add("5. มัธยมศึกษาตอนปลาย");
-        lables.add("6. อุดมศึกษา");
-        lables.add("7. อื่น ๆ");
-        lables.add("8. ไม่ทราบ");
+        for (int i = 0; i < listSum.size(); i++) {
+            lables.add(listStart.get(i) + " - " + listEnd.get(i) + " ชั่วโมง");
+        }
 
         PieDataSet dataSet = new PieDataSet(entries, "");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
@@ -130,13 +137,17 @@ public class DataLfpEduSex extends Fragment {
         pieChart.setUsePercentValues(true);
         pieChart.setHoleRadius(30);
         pieChart.setTransparentCircleRadius(40);
-
     }
 
     private void tableView() {
-        ArrayList<String> listName = new ArrayList<String>();
-        for (String tamp : name) {
-            listName.add(tamp);
+        ArrayList<String> listStart = new ArrayList<String>();
+        for (String tamp : start) {
+            listStart.add(tamp);
+        }
+
+        ArrayList<String> listEnd = new ArrayList<String>();
+        for (String tamp : end) {
+            listEnd.add(tamp);
         }
 
         ArrayList<Integer> listMale = new ArrayList<Integer>();
@@ -154,13 +165,19 @@ public class DataLfpEduSex extends Fragment {
             listSum.add(tamp);
         }
 
+        for (int i = 0; i < listSum.size(); i++) {
+
+            String sumAll = String.valueOf(listSum.get(i));
+            String sumMale = String.valueOf(listMale.get(i));
+            String sumFemale = String.valueOf(listFemale.get(i));
+
+            allSum += Integer.valueOf(sumAll);
+            allMale += Integer.valueOf(sumMale);
+            allFemale += Integer.valueOf(sumFemale);
+
+        }
+
         TableRow rowSum = new TableRow(getContext());
-        String sumAll = String.valueOf(listSum.get(0) + listSum.get(1) + listSum.get(2) + listSum.get(3) +
-                listSum.get(4) + listSum.get(8) + listSum.get(12) + listSum.get(13));
-        String sumMale = String.valueOf(listMale.get(0) + listMale.get(1) + listMale.get(2) + listMale.get(3) +
-                listMale.get(4) + listMale.get(8) + listMale.get(12) + listMale.get(13));
-        String sumFemale = String.valueOf(listFemale.get(0) + listFemale.get(1) + listFemale.get(2) + listFemale.get(3) +
-                listFemale.get(4) + listFemale.get(8) + listFemale.get(12) + listFemale.get(13));
         TextView tvSumStatus = new TextView(getContext());
         tvSumStatus.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumStatus.setTextColor(Color.parseColor("#FFFFFF"));
@@ -168,30 +185,30 @@ public class DataLfpEduSex extends Fragment {
         TextView tvSumAll = new TextView(getContext());
         tvSumAll.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumAll.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumAll.setText(sumAll);
+        tvSumAll.setText(String.valueOf(allSum));
         TextView tvSumMale = new TextView(getContext());
         tvSumMale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumMale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumMale.setText(sumMale);
+        tvSumMale.setText(String.valueOf(allMale));
         TextView tvSumFemale = new TextView(getContext());
         tvSumFemale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumFemale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumFemale.setText(sumFemale);
+        tvSumFemale.setText(String.valueOf(allFemale));
         rowSum.addView(tvSumStatus);
         rowSum.addView(tvSumAll);
         rowSum.addView(tvSumMale);
         rowSum.addView(tvSumFemale);
         tableData.addView(rowSum);
 
-
-        for (int i = 0; i < listName.size(); i++) {
+        for (int i = 0; i < listMale.size(); i++) {
             TableRow row = new TableRow(getContext());
-            String status = listName.get(i);
+            String status = i+1 + ". "+ listStart.get(i) + " - " + listEnd.get(i) + " ชั่วโมง";
             String sum = String.valueOf(listSum.get(i));
             String male = String.valueOf(listMale.get(i));
             String female = String.valueOf(listFemale.get(i));
             TextView tvStatus = new TextView(getContext());
-            tvStatus.setGravity(Gravity.CENTER_HORIZONTAL);
+            tvStatus.setWidth(300);
+            //tvStatus.setGravity(Gravity.CENTER_HORIZONTAL);
             tvStatus.setTextColor(Color.parseColor("#FFFFFF"));
             tvStatus.setText(status);
             TextView tvSum = new TextView(getContext());

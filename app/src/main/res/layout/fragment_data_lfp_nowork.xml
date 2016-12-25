@@ -46,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="อุตสาหกรรม"
+                            android:text="ประชากรรวม"
                             android:textColor="@color/font"
                             android:textSize="@dimen/subHeadLine"
                             android:textStyle="bold" />
@@ -55,7 +55,7 @@
                             android:layout_width="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="รวม"
+                            android:text="ผู้อยู่ในกำลังทำงาน"
                             android:textColor="@color/font"
                             android:textSize="@dimen/subHeadLine"
                             android:textStyle="bold" />
@@ -64,16 +64,7 @@
                             android:layout_width="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="ชาย"
-                            android:textColor="@color/font"
-                            android:textSize="@dimen/subHeadLine"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="หญิง"
+                            android:text="ผู้ว่างงาน"
                             android:textColor="@color/font"
                             android:textSize="@dimen/subHeadLine"
                             android:textStyle="bold" />
@@ -87,7 +78,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <com.github.mikephil.charting.charts.BarChart
+                    <com.github.mikephil.charting.charts.PieChart
                         android:id="@+id/chart"
                         android:layout_width="match_parent"
                         android:layout_height="300dp" />

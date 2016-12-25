@@ -27,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//จำนวนและร้อยละของประชากร จำแนกตามสถานภาพแรงงาน และเพศ
 
 public class LaborAndSexFragment extends Fragment {
 
