@@ -9,7 +9,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "fluke.projectsips"
@@ -28,9 +28,12 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.github.ganfra:material-spinner:1.1.1'
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.github.PhilJay:MPAndroidChart:v2.2.5'
+    compile 'com.google.android.gms:play-services:7.5.0'
+    compile 'com.android.support:appcompat-v7:25.2.0'
+    compile 'com.squareup.retrofit2:retrofit:(insert latest version)'
+    compile 'com.android.support:support-v13:25.2.0'
+    compile 'com.android.support:multidex:1.0.1'
 }

@@ -2,6 +2,8 @@ package fluke.projectsips.manager.http;
 
 import fluke.projectsips.dao.CpiCategCollectionDao;
 import fluke.projectsips.dao.CpiCollectionDao;
+import fluke.projectsips.dao.FarmAreaCollectionDao;
+import fluke.projectsips.dao.FarmAreaTypeCollectionDao;
 import fluke.projectsips.dao.GdpCollectionDao;
 import fluke.projectsips.dao.GppProvinceCollectionDao;
 import fluke.projectsips.dao.GppSakaeoCollectionDao;
@@ -89,8 +91,14 @@ public interface ApiService {
     Call<LfpLaborNoWorkCollectionDao> getLaborNoWork(@Query("year") int year,
                                                      @Query("quarter") int quarter);
 
+    @GET("farm-area.php")
+    Call<FarmAreaCollectionDao> getFarmArea(@Query("product") int product);
+
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();
+
+    @POST("farm-area-type.php")
+    Call<FarmAreaTypeCollectionDao> getFarmAreaType();
 
     @POST("region.php")
     Call<RegionCollectionDao> getRegion();
