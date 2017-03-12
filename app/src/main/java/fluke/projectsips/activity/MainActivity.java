@@ -23,14 +23,14 @@ import java.util.List;
 
 import fluke.projectsips.R;
 import fluke.projectsips.adapter.MyExpandableAdapter;
-import fluke.projectsips.fragment.CategCpiFragment;
+import fluke.projectsips.fragment.economic.CategCpiFragment;
 import fluke.projectsips.fragment.ComingFragment;
-import fluke.projectsips.fragment.CpiFragment;
-import fluke.projectsips.fragment.EconomicMonthFragment;
-import fluke.projectsips.fragment.GppFragment;
-import fluke.projectsips.fragment.LfpFragment;
+import fluke.projectsips.fragment.economic.CpiFragment;
+import fluke.projectsips.fragment.economic.EconomicMonthFragment;
+import fluke.projectsips.fragment.economic.GppFragment;
+import fluke.projectsips.fragment.economic.LfpFragment;
 import fluke.projectsips.fragment.MainFragment;
-import fluke.projectsips.fragment.PopulationFragment;
+import fluke.projectsips.fragment.information.PopulationFragment;
 import fluke.projectsips.fragment.agriculture.AreaFragment;
 
 

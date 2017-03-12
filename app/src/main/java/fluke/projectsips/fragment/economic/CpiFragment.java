@@ -1,4 +1,4 @@
-package fluke.projectsips.fragment;
+package fluke.projectsips.fragment.economic;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -295,12 +295,8 @@ public class CpiFragment extends Fragment {
             if (position == -1) {
                 sumYear = 0;
             } else {
-                try {
                     sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
                     //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
             }
         }
 

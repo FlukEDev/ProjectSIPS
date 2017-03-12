@@ -2,6 +2,7 @@ package fluke.projectsips.manager.http;
 
 import fluke.projectsips.dao.CpiCategCollectionDao;
 import fluke.projectsips.dao.CpiCollectionDao;
+import fluke.projectsips.dao.EcoMonthCollectionDao;
 import fluke.projectsips.dao.FarmAreaCollectionDao;
 import fluke.projectsips.dao.FarmAreaTypeCollectionDao;
 import fluke.projectsips.dao.GdpCollectionDao;
@@ -90,6 +91,10 @@ public interface ApiService {
     @GET("labor-nowork.php")
     Call<LfpLaborNoWorkCollectionDao> getLaborNoWork(@Query("year") int year,
                                                      @Query("quarter") int quarter);
+
+    @GET("eco-month.php")
+    Call<EcoMonthCollectionDao> getEcoMonth(@Query("date") String date,
+                                            @Query("side") int side);
 
     @GET("farm-area.php")
     Call<FarmAreaCollectionDao> getFarmArea(@Query("product") int product);

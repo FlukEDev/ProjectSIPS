@@ -7,14 +7,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import fluke.projectsips.R;
-import fluke.projectsips.fragment.lfp.AgeEducationAndSexFragment;
-import fluke.projectsips.fragment.lfp.EmployedEducationAndSexFragment;
-import fluke.projectsips.fragment.lfp.EmployedHourWeekAndSexFragment;
-import fluke.projectsips.fragment.lfp.EmployedIndustryAndSexFragment;
-import fluke.projectsips.fragment.lfp.EmployedJobAndSexFragment;
-import fluke.projectsips.fragment.lfp.EmployedWorkAndSexFragment;
-import fluke.projectsips.fragment.lfp.LaborAndSexFragment;
-import fluke.projectsips.fragment.lfp.UnemployedSexFragment;
+import fluke.projectsips.fragment.economic.lfp.AgeEducationAndSexFragment;
+import fluke.projectsips.fragment.economic.lfp.EmployedEducationAndSexFragment;
+import fluke.projectsips.fragment.economic.lfp.EmployedHourWeekAndSexFragment;
+import fluke.projectsips.fragment.economic.lfp.EmployedIndustryAndSexFragment;
+import fluke.projectsips.fragment.economic.lfp.EmployedJobAndSexFragment;
+import fluke.projectsips.fragment.economic.lfp.EmployedWorkAndSexFragment;
+import fluke.projectsips.fragment.economic.lfp.LaborAndSexFragment;
+import fluke.projectsips.fragment.economic.lfp.UnemployedSexFragment;
 
 
 public class LfpActivity extends AppCompatActivity {

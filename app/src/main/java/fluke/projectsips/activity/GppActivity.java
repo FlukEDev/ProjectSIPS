@@ -7,12 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import fluke.projectsips.R;
-import fluke.projectsips.fragment.gpp.GdpFragment;
-import fluke.projectsips.fragment.gpp.GdpUserFragment;
-import fluke.projectsips.fragment.gpp.GppProvinceFragment;
-import fluke.projectsips.fragment.gpp.GppSakaeoFragment;
-import fluke.projectsips.fragment.gpp.GrpBuraphaFragment;
-import fluke.projectsips.fragment.gpp.GrpFragment;
+import fluke.projectsips.fragment.economic.gpp.GdpFragment;
+import fluke.projectsips.fragment.economic.gpp.GdpUserFragment;
+import fluke.projectsips.fragment.economic.gpp.GppProvinceFragment;
+import fluke.projectsips.fragment.economic.gpp.GppSakaeoFragment;
+import fluke.projectsips.fragment.economic.gpp.GrpBuraphaFragment;
+import fluke.projectsips.fragment.economic.gpp.GrpFragment;
 
 public class GppActivity extends AppCompatActivity {
 

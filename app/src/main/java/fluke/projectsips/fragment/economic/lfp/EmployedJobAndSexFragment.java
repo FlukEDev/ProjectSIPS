@@ -1,4 +1,4 @@
-package fluke.projectsips.fragment.lfp;
+package fluke.projectsips.fragment.economic.lfp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 import fluke.projectsips.activity.DataActivity;
-import fluke.projectsips.dao.LfpLaborWorkingHoursCollectionDao;
+import fluke.projectsips.dao.LfpLaborCareerCollectionDao;
 import fluke.projectsips.manager.Contextor;
 import fluke.projectsips.manager.HttpManager;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -27,9 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามชั่วโมงการทำงานต่อสัปดาห์ และเพศ
+//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามอาชีพ และเพศ
 
-public class EmployedHourWeekAndSexFragment extends Fragment {
+public class EmployedJobAndSexFragment extends Fragment {
 
     private MaterialSpinner sQuarter;
     private MaterialSpinner sYear;
@@ -38,19 +38,17 @@ public class EmployedHourWeekAndSexFragment extends Fragment {
     private String quarterName;
     private int sumYear;
     private int year;
-    private String start;
-    private String end;
+    private String name;
     private String male;
     private String female;
     private Integer sum;
 
-
-    public EmployedHourWeekAndSexFragment() {
+    public EmployedJobAndSexFragment() {
         super();
     }
 
-    public static EmployedHourWeekAndSexFragment newInstance() {
-        EmployedHourWeekAndSexFragment fragment = new EmployedHourWeekAndSexFragment();
+    public static EmployedJobAndSexFragment newInstance() {
+        EmployedJobAndSexFragment fragment = new EmployedJobAndSexFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -68,7 +66,7 @@ public class EmployedHourWeekAndSexFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_lfp_employed_hour_week_and_sex, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lfp_employed_job_and_sex, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -125,32 +123,27 @@ public class EmployedHourWeekAndSexFragment extends Fragment {
         alertDialog.show();
     }
 
-    /***************
+    /*****************
      *
      * Listeners
      *
-     **************/
+     ****************/
 
     View.OnClickListener searchClick = new View.OnClickListener() {
         @Override
-        public void onClick(View v) {
-            Call<LfpLaborWorkingHoursCollectionDao> call = HttpManager.getInstance().getService().getLaborWorkingHours(sumYear, quarterID);
-            call.enqueue(new Callback<LfpLaborWorkingHoursCollectionDao>() {
+        public void onClick(View view) {
+            Call<LfpLaborCareerCollectionDao> call = HttpManager.getInstance().getService().getLaborCareer(sumYear, quarterID);
+            call.enqueue(new Callback<LfpLaborCareerCollectionDao>() {
                 @Override
-                public void onResponse(Call<LfpLaborWorkingHoursCollectionDao> call, Response<LfpLaborWorkingHoursCollectionDao> response) {
+                public void onResponse(Call<LfpLaborCareerCollectionDao> call, Response<LfpLaborCareerCollectionDao> response) {
                     if (response.isSuccessful()) {
-                        LfpLaborWorkingHoursCollectionDao dao = response.body();
+                        LfpLaborCareerCollectionDao dao = response.body();
                         if (sumYear != 0 && quarterID != 0) {
-                            ArrayList<String> listWorkingHrStart = new ArrayList<String>();
-                            for (int i =0; i < dao.getData().size(); i++) {
-                                start = dao.getData().get(i).getWorkingHrStart();
-                                listWorkingHrStart.add(start);
-                            }
 
-                            ArrayList<String> listWorkingHrEnd = new ArrayList<String>();
-                            for (int i =0; i < dao.getData().size(); i++) {
-                                end = dao.getData().get(i).getWorkingHrEnd();
-                                listWorkingHrEnd.add(end);
+                            ArrayList<String> listName = new ArrayList<String>();
+                            for (int i = 0; i < dao.getData().size(); i++) {
+                                name = dao.getData().get(i).getCareerName();
+                                listName.add(name);
                             }
 
                             ArrayList<Integer> listMale = new ArrayList<Integer>();
@@ -171,21 +164,22 @@ public class EmployedHourWeekAndSexFragment extends Fragment {
                                 listSum.add(sum);
                             }
 
-                            String little = "จำนวนและร้อยละของผู้มีงานทำ จำแนกตามชั่วโมงการทำงานต่อสัปดาห์ และเพศ " + quarterName + " ปี " + year;
+                            String little = "จำนวนและร้อยละของผู้มีงานทำ จำแนกตามอาชีพ และเพศ " + quarterName + "ปี " + year;
 
                             Intent intent = new Intent(getContext(), DataActivity.class);
-                            intent.putExtra("key", 14);
+                            intent.putExtra("key", 11);
                             intent.putExtra("little", little);
-                            intent.putStringArrayListExtra("start", listWorkingHrStart);
-                            intent.putStringArrayListExtra("end", listWorkingHrEnd);
+                            intent.putStringArrayListExtra("name", listName);
                             intent.putIntegerArrayListExtra("male", listMale);
                             intent.putIntegerArrayListExtra("female", listFemale);
                             intent.putIntegerArrayListExtra("sum", listSum);
 
                             startActivity(intent);
+
                         } else {
                             MsgBox();
                         }
+
                     } else {
                         try {
                             Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -196,7 +190,7 @@ public class EmployedHourWeekAndSexFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<LfpLaborWorkingHoursCollectionDao> call, Throwable t) {
+                public void onFailure(Call<LfpLaborCareerCollectionDao> call, Throwable t) {
                     Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -205,37 +199,33 @@ public class EmployedHourWeekAndSexFragment extends Fragment {
 
     AdapterView.OnItemSelectedListener selectQuarter = new AdapterView.OnItemSelectedListener() {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
             quarterID = position + 1;
             //Toast.makeText(getContext(), "quarterID = " + quarterID, Toast.LENGTH_SHORT).show();
             quarterName = parent.getItemAtPosition(position).toString();
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> parent) {
+        public void onNothingSelected(AdapterView<?> adapterView) {
 
         }
     };
 
     AdapterView.OnItemSelectedListener selectYear = new AdapterView.OnItemSelectedListener() {
         @Override
-        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long l) {
             int val = 543;
             if (position == -1) {
                 sumYear = 0;
             } else {
-                try {
                     sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
                     //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
                     year = Integer.parseInt(parent.getSelectedItem().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
             }
         }
 
         @Override
-        public void onNothingSelected(AdapterView<?> parent) {
+        public void onNothingSelected(AdapterView<?> adapterView) {
 
         }
     };

@@ -1,4 +1,4 @@
-package fluke.projectsips.fragment;
+package fluke.projectsips.fragment.economic;
 
 import android.content.Intent;
 import android.os.Bundle;

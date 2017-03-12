@@ -1,4 +1,4 @@
-package fluke.projectsips.fragment.lfp;
+package fluke.projectsips.fragment.economic.lfp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 import fluke.projectsips.activity.DataActivity;
-import fluke.projectsips.dao.LfpLaborEduCollectionDao;
+import fluke.projectsips.dao.LfpLaborIndustryCollectionDao;
 import fluke.projectsips.manager.Contextor;
 import fluke.projectsips.manager.HttpManager;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -27,9 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
+//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามอุตสาหกรรม และเพศ
 
-public class EmployedEducationAndSexFragment extends Fragment {
+public class EmployedIndustryAndSexFragment extends Fragment {
 
     private MaterialSpinner sQuarter;
     private MaterialSpinner sYear;
@@ -41,14 +41,14 @@ public class EmployedEducationAndSexFragment extends Fragment {
     private String name;
     private String male;
     private String female;
-    private Integer sum;
+    private int sum;
 
-    public EmployedEducationAndSexFragment() {
+    public EmployedIndustryAndSexFragment() {
         super();
     }
 
-    public static EmployedEducationAndSexFragment newInstance() {
-        EmployedEducationAndSexFragment fragment = new EmployedEducationAndSexFragment();
+    public static EmployedIndustryAndSexFragment newInstance() {
+        EmployedIndustryAndSexFragment fragment = new EmployedIndustryAndSexFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -66,7 +66,7 @@ public class EmployedEducationAndSexFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_lfp_employed_education_and_sex, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lfp_employed_industry_and_sex, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -98,6 +98,7 @@ public class EmployedEducationAndSexFragment extends Fragment {
 
         btnSearch = (Button) rootView.findViewById(R.id.submit);
         btnSearch.setOnClickListener(searchClick);
+
     }
 
     @Override
@@ -123,26 +124,25 @@ public class EmployedEducationAndSexFragment extends Fragment {
         alertDialog.show();
     }
 
-    /*************
+    /**************
      *
      * Listeners
      *
-     *************/
+     **************/
 
     View.OnClickListener searchClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Call<LfpLaborEduCollectionDao> call = HttpManager.getInstance().getService().getLaborEdu(sumYear, quarterID);
-            call.enqueue(new Callback<LfpLaborEduCollectionDao>() {
+            Call<LfpLaborIndustryCollectionDao> call = HttpManager.getInstance().getService().getLaborIndustry(sumYear, quarterID);
+            call.enqueue(new Callback<LfpLaborIndustryCollectionDao>() {
                 @Override
-                public void onResponse(Call<LfpLaborEduCollectionDao> call, Response<LfpLaborEduCollectionDao> response) {
+                public void onResponse(Call<LfpLaborIndustryCollectionDao> call, Response<LfpLaborIndustryCollectionDao> response) {
                     if (response.isSuccessful()) {
-                        LfpLaborEduCollectionDao dao = response.body();
+                        LfpLaborIndustryCollectionDao dao = response.body();
                         if (sumYear != 0 && quarterID != 0) {
-
                             ArrayList<String> listName = new ArrayList<String>();
-                            for (int i =0; i < dao.getData().size(); i++) {
-                                name = dao.getData().get(i).getEduDetail();
+                            for (int i = 0; i < dao.getData().size(); i++) {
+                                name = dao.getData().get(i).getIndustryName();
                                 listName.add(name);
                             }
 
@@ -164,10 +164,10 @@ public class EmployedEducationAndSexFragment extends Fragment {
                                 listSum.add(sum);
                             }
 
-                            String little = "จำนวนและร้อยละของผู้มีงานทำ จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ " + quarterName + "ปี " + year;
+                            String little = "จำนวนและร้อยละของผู้มีงานทำ จำแนกตามอุตสาหกรรม และเพศ " + quarterName + "ปี " + year;
 
                             Intent intent = new Intent(getContext(), DataActivity.class);
-                            intent.putExtra("key", 10);
+                            intent.putExtra("key", 12);
                             intent.putExtra("little", little);
                             intent.putStringArrayListExtra("name", listName);
                             intent.putIntegerArrayListExtra("male", listMale);
@@ -179,7 +179,6 @@ public class EmployedEducationAndSexFragment extends Fragment {
                         } else {
                             MsgBox();
                         }
-
                     } else {
                         try {
                             Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -190,7 +189,7 @@ public class EmployedEducationAndSexFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<LfpLaborEduCollectionDao> call, Throwable t) {
+                public void onFailure(Call<LfpLaborIndustryCollectionDao> call, Throwable t) {
                     Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -218,13 +217,9 @@ public class EmployedEducationAndSexFragment extends Fragment {
             if (position == -1) {
                 sumYear = 0;
             } else {
-                try {
                     sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
                     //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
                     year = Integer.parseInt(parent.getSelectedItem().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
             }
         }
 

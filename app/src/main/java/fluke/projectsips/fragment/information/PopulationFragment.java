@@ -1,4 +1,4 @@
-package fluke.projectsips.fragment;
+package fluke.projectsips.fragment.information;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -201,12 +201,8 @@ public class PopulationFragment extends Fragment {
             if (position == -1) {
                 sum = 0;
             } else {
-                try {
                     sum = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
                     year = Integer.parseInt(parent.getSelectedItem().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
             }
         }
 

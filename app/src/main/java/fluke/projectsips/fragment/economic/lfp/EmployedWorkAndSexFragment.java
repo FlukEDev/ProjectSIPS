@@ -1,4 +1,4 @@
-package fluke.projectsips.fragment.lfp;
+package fluke.projectsips.fragment.economic.lfp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,10 +15,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import fluke.projectsips.R;
 import fluke.projectsips.activity.DataActivity;
-import fluke.projectsips.dao.LfpLaborNoWorkCollectionDao;
+import fluke.projectsips.dao.LfpLaborWorkingStatusCollectionDao;
 import fluke.projectsips.manager.Contextor;
 import fluke.projectsips.manager.HttpManager;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -26,9 +27,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//จำนวนและอัตราการว่างงาน จำแนกตามเพศ
+//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามสถานภาพการทำงาน และเพศ
 
-public class UnemployedSexFragment extends Fragment {
+public class EmployedWorkAndSexFragment extends Fragment {
 
     private MaterialSpinner sQuarter;
     private MaterialSpinner sYear;
@@ -37,17 +38,17 @@ public class UnemployedSexFragment extends Fragment {
     private String quarterName;
     private int sumYear;
     private int year;
-    public Integer noWorkMale;
-    public Integer noWorkFemale;
-    public Integer workMale;
-    public Integer workFemale;
+    private String name;
+    private String male;
+    private String female;
+    private Integer sum;
 
-    public UnemployedSexFragment() {
+    public EmployedWorkAndSexFragment() {
         super();
     }
 
-    public static UnemployedSexFragment newInstance() {
-        UnemployedSexFragment fragment = new UnemployedSexFragment();
+    public static EmployedWorkAndSexFragment newInstance() {
+        EmployedWorkAndSexFragment fragment = new EmployedWorkAndSexFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -65,7 +66,7 @@ public class UnemployedSexFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_lfp_unemployed_sex, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_lfp_employed_work_and_sex, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -126,40 +127,56 @@ public class UnemployedSexFragment extends Fragment {
      *
      * Listeners
      *
-     * ***********/
+     **************/
 
     View.OnClickListener searchClick = new View.OnClickListener() {
-
         @Override
         public void onClick(View v) {
-            Call<LfpLaborNoWorkCollectionDao> call = HttpManager.getInstance().getService().getLaborNoWork(sumYear, quarterID);
-            call.enqueue(new Callback<LfpLaborNoWorkCollectionDao>() {
+            Call<LfpLaborWorkingStatusCollectionDao> call = HttpManager.getInstance().getService().getLaborWorkingStatus(sumYear, quarterID);
+            call.enqueue(new Callback<LfpLaborWorkingStatusCollectionDao>() {
                 @Override
-                public void onResponse(Call<LfpLaborNoWorkCollectionDao> call, Response<LfpLaborNoWorkCollectionDao> response) {
+                public void onResponse(Call<LfpLaborWorkingStatusCollectionDao> call, Response<LfpLaborWorkingStatusCollectionDao> response) {
                     if (response.isSuccessful()) {
-                        LfpLaborNoWorkCollectionDao dao = response.body();
+                        LfpLaborWorkingStatusCollectionDao dao = response.body();
                         if (sumYear != 0 && quarterID != 0) {
-                            noWorkMale = dao.getData().get(0).getLaborNoworkMaleAmount();
-                            noWorkFemale = dao.getData().get(0).getLaborNoworkFemaleAmount();
-                            workMale = dao.getData().get(0).getLaborWorkMaleAmount();
-                            workFemale = dao.getData().get(0).getLaborWorkFemaleAmount();
+                            ArrayList<String> listName = new ArrayList<String>();
+                            for (int i = 0; i < dao.getData().size(); i++) {
+                                name = dao.getData().get(i).getWorkingStatusName();
+                                listName.add(name);
+                            }
 
-                            String little = "จำนวนและอัตราการว่างงาน จำแนกตามเพศ " + quarterName + " ปี " + year;
+                            ArrayList<Integer> listMale = new ArrayList<Integer>();
+                            for (int i = 0; i < dao.getData().size(); i++) {
+                                male = String.valueOf(dao.getData().get(i).getMaleAmount());
+                                listMale.add(Integer.valueOf(male));
+                            }
+
+                            ArrayList<Integer> listFemale = new ArrayList<Integer>();
+                            for (int i = 0; i < dao.getData().size(); i++) {
+                                female = String.valueOf(dao.getData().get(i).getFemaleAmount());
+                                listFemale.add(Integer.valueOf(female));
+                            }
+
+                            ArrayList<Integer> listSum = new ArrayList<Integer>();
+                            for (int i = 0; i < dao.getData().size(); i++) {
+                                sum = dao.getData().get(i).getMaleAmount() + dao.getData().get(i).getFemaleAmount();
+                                listSum.add(sum);
+                            }
+
+                            String little = "จำนวนและร้อยละของผู้มีงานทำ จำแนกตามสถานภาพการทำงาน และเพศ " + quarterName + " ปี " + year;
 
                             Intent intent = new Intent(getContext(), DataActivity.class);
-                            intent.putExtra("key", 15);
+                            intent.putExtra("key", 13);
                             intent.putExtra("little", little);
-                            intent.putExtra("noWorkMale", noWorkMale);
-                            intent.putExtra("noWorkFemale", noWorkFemale);
-                            intent.putExtra("workMale", workMale);
-                            intent.putExtra("workFemale", workFemale);
+                            intent.putStringArrayListExtra("name", listName);
+                            intent.putIntegerArrayListExtra("male", listMale);
+                            intent.putIntegerArrayListExtra("female", listFemale);
+                            intent.putIntegerArrayListExtra("sum", listSum);
 
                             startActivity(intent);
-
                         } else {
                             MsgBox();
                         }
-
                     } else {
                         try {
                             Toast.makeText(Contextor.getInstance().getContext(), response.errorBody().string(), Toast.LENGTH_LONG).show();
@@ -170,7 +187,7 @@ public class UnemployedSexFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<LfpLaborNoWorkCollectionDao> call, Throwable t) {
+                public void onFailure(Call<LfpLaborWorkingStatusCollectionDao> call, Throwable t) {
                     Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -198,13 +215,9 @@ public class UnemployedSexFragment extends Fragment {
             if (position == -1) {
                 sumYear = 0;
             } else {
-                try {
                     sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
                     //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
                     year = Integer.parseInt(parent.getSelectedItem().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
             }
         }
 

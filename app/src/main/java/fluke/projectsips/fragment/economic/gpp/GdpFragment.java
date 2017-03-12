@@ -1,4 +1,4 @@
-package fluke.projectsips.fragment.gpp;
+package fluke.projectsips.fragment.economic.gpp;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import fluke.projectsips.R;
 import fluke.projectsips.activity.DataActivity;
-import fluke.projectsips.dao.GrpBuraphaCollectionDao;
+import fluke.projectsips.dao.GdpCollectionDao;
 import fluke.projectsips.manager.Contextor;
 import fluke.projectsips.manager.HttpManager;
 import fr.ganfra.materialspinner.MaterialSpinner;
@@ -29,21 +29,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class GrpBuraphaFragment extends Fragment {
+public class GdpFragment extends Fragment {
 
     private MaterialSpinner sYear;
     private RadioGroup rgType;
     private Button btnSearch;
-    private int type = 1;
     private int sumYear;
     private int year;
+    private int type = 1;
+    private String grpPrice;
+    private float price;
+    private int sum;
+    private String provinceName;
+    private String population;
 
-    public GrpBuraphaFragment() {
+    public GdpFragment() {
         super();
     }
 
-    public static GrpBuraphaFragment newInstance() {
-        GrpBuraphaFragment fragment = new GrpBuraphaFragment();
+    public static GdpFragment newInstance() {
+        GdpFragment fragment = new GdpFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -61,7 +66,7 @@ public class GrpBuraphaFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_grp_burapha, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_gdp, container, false);
         initInstances(rootView, savedInstanceState);
         return rootView;
     }
@@ -115,26 +120,21 @@ public class GrpBuraphaFragment extends Fragment {
         alertDialog.show();
     }
 
-    private String grpPrice;
-    private float price;
-    private int sum;
-    private String provinceName;
-    private String population;
-    /************
+    /**************
      *
      * Listeners
      *
-     ************/
+     **************/
 
     View.OnClickListener searchClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Call<GrpBuraphaCollectionDao> call = HttpManager.getInstance().getService().getGrpBurapha(type, sumYear);
-            call.enqueue(new Callback<GrpBuraphaCollectionDao>() {
+            Call<GdpCollectionDao> call = HttpManager.getInstance().getService().getGdp(type, sumYear);
+            call.enqueue(new Callback<GdpCollectionDao>() {
                 @Override
-                public void onResponse(Call<GrpBuraphaCollectionDao> call, Response<GrpBuraphaCollectionDao> response) {
+                public void onResponse(Call<GdpCollectionDao> call, Response<GdpCollectionDao> response) {
                     if (response.isSuccessful()) {
-                        GrpBuraphaCollectionDao dao = response.body();
+                        GdpCollectionDao dao = response.body();
                         if (sumYear != 0) {
                             if (type == 1) {
                                 ArrayList<Integer> listPrice = new ArrayList<Integer>();
@@ -153,15 +153,15 @@ public class GrpBuraphaFragment extends Fragment {
                                 }
 
                                 ArrayList<String> listPopulation = new ArrayList<String>();
-                                for (int i = 0; i < dao.getData().size(); i++) {
+                                for (int i = 0; i< dao.getData().size(); i++) {
                                     population = dao.getData().get(i).getPopulation();
                                     listPopulation.add(population);
                                 }
 
-                                String little = "ผลิตภัณฑ์มวลรวมในกลุ่มเบญจบูรพาสุวรรณภูมิ (GRP) ตามราคาประจำปี พ.ศ. " + year;
+                                String little = "ผลิตภัณฑ์มวลรวมในประเทศ (GDP) ตามราคาประจำปี พ.ศ. "+ year;
 
                                 Intent intent = new Intent(getContext(), DataActivity.class);
-                                intent.putExtra("key", 6);
+                                intent.putExtra("key", 7);
                                 intent.putStringArrayListExtra("name", listProvinceName);
                                 intent.putIntegerArrayListExtra("price", listPrice);
                                 intent.putStringArrayListExtra("population", listPopulation);
@@ -187,15 +187,15 @@ public class GrpBuraphaFragment extends Fragment {
                                 }
 
                                 ArrayList<String> listPopulation = new ArrayList<String>();
-                                for (int i = 0; i < dao.getData().size(); i++) {
+                                for (int i = 0; i< dao.getData().size(); i++) {
                                     population = dao.getData().get(i).getPopulation();
                                     listPopulation.add(population);
                                 }
 
-                                String little = "ผลิตภัณฑ์มวลรวมในกลุ่มเบญจบูรพาสุวรรณภูมิ (GRP) ตามระดับราคาคงที่ พ.ศ. " + year;
+                                String little = "ผลิตภัณฑ์มวลรวมในประเทศ (GDP) ตามระดับราคาคงที่ พ.ศ. " + year;
 
                                 Intent intent = new Intent(getContext(), DataActivity.class);
-                                intent.putExtra("key", 6);
+                                intent.putExtra("key", 7);
                                 intent.putStringArrayListExtra("name", listProvinceName);
                                 intent.putIntegerArrayListExtra("price", listPrice);
                                 intent.putStringArrayListExtra("population", listPopulation);
@@ -203,6 +203,7 @@ public class GrpBuraphaFragment extends Fragment {
 
                                 startActivity(intent);
                             }
+
                         } else {
                             MsgBox();
                         }
@@ -217,7 +218,7 @@ public class GrpBuraphaFragment extends Fragment {
                 }
 
                 @Override
-                public void onFailure(Call<GrpBuraphaCollectionDao> call, Throwable t) {
+                public void onFailure(Call<GdpCollectionDao> call, Throwable t) {
                     Toast.makeText(Contextor.getInstance().getContext(), t.toString(), Toast.LENGTH_SHORT).show();
                 }
             });
@@ -232,13 +233,9 @@ public class GrpBuraphaFragment extends Fragment {
             if (position == -1) {
                 sumYear = 0;
             } else {
-                try {
                     sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
                     //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
                     year = Integer.parseInt(parent.getSelectedItem().toString());
-                } catch (NumberFormatException e) {
-                    e.printStackTrace();
-                }
             }
         }
 
