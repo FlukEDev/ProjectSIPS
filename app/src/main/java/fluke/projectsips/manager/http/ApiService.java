@@ -93,8 +93,8 @@ public interface ApiService {
                                                      @Query("quarter") int quarter);
 
     @GET("eco-month.php")
-    Call<EcoMonthCollectionDao> getEcoMonth(@Query("date") String date,
-                                            @Query("side") int side);
+    Call<EcoMonthCollectionDao> getEcoMonth(@Query("side") int side,
+                                            @Query("date") String date);
 
     @GET("farm-area.php")
     Call<FarmAreaCollectionDao> getFarmArea(@Query("product") int product);

@@ -17,7 +17,7 @@ public class EcoMonthDao {
     private String unit;
     @SerializedName("transactionAmount")
     @Expose
-    private Integer transactionAmount;
+    private String transactionAmount;
 
     public String getKpiName() {
         return kpiName;
@@ -35,11 +35,11 @@ public class EcoMonthDao {
         this.unit = unit;
     }
 
-    public Integer getTransactionAmount() {
+    public String getTransactionAmount() {
         return transactionAmount;
     }
 
-    public void setTransactionAmount(Integer transactionAmount) {
+    public void setTransactionAmount(String transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
 

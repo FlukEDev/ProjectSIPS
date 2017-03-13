@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import fluke.projectsips.R;
 import fluke.projectsips.fragment.data.DataCategCpiFragment;
 import fluke.projectsips.fragment.data.DataCpiFragment;
+import fluke.projectsips.fragment.data.DataEcoMonthFragment;
 import fluke.projectsips.fragment.data.DataGdpFragment;
 import fluke.projectsips.fragment.data.DataGppProvinceFragment;
 import fluke.projectsips.fragment.data.DataGppSakaeoFragment;
@@ -117,6 +118,10 @@ public class DataActivity extends AppCompatActivity {
         else if (key == 15) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.contentContainer, DataLfpNoWork.newInstance())
+                    .commit();
+        } else if (key == 16) {
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.contentContainer, DataEcoMonthFragment.newInstance())
                     .commit();
         }
     }

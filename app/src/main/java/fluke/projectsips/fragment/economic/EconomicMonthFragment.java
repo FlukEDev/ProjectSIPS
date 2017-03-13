@@ -1,9 +1,11 @@
 package fluke.projectsips.fragment.economic;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,8 +15,10 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import fluke.projectsips.R;
+import fluke.projectsips.activity.DataActivity;
 import fluke.projectsips.dao.EcoMonthCollectionDao;
 import fluke.projectsips.manager.Contextor;
 import fluke.projectsips.manager.HttpManager;
@@ -35,6 +39,10 @@ public class EconomicMonthFragment extends Fragment {
     private String sumMonth;
     private String date;
     private String name;
+    private String unit;
+    private String transaction;
+    private String nameMonth;
+    private String nameYear;
 
     public EconomicMonthFragment() {
         super();
@@ -111,6 +119,18 @@ public class EconomicMonthFragment extends Fragment {
         // Restore Instance (Fragment level's variables) State here
     }
 
+    private void MsgBox() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setMessage("คุณยังไม่ได้ทำการเลือก เดือน ปี หรือ ด้าน ที่ต้องการดูข้อมูล");
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
     /**************
      *
      * Listeners
@@ -123,15 +143,104 @@ public class EconomicMonthFragment extends Fragment {
 
             date = sumYear + "" + sumMonth + "00";
 
-            Call<EcoMonthCollectionDao> call = HttpManager.getInstance().getService().getEcoMonth(date, side);
+            Call<EcoMonthCollectionDao> call = HttpManager.getInstance().getService().getEcoMonth(side, date);
             call.enqueue(new Callback<EcoMonthCollectionDao>() {
                 @Override
                 public void onResponse(Call<EcoMonthCollectionDao> call, Response<EcoMonthCollectionDao> response) {
                     if (response.isSuccessful()) {
                         EcoMonthCollectionDao dao = response.body();
 
-                        name = dao.getData().get(0).getKpiName();
-                        Log.d("FLUKE", "Name : " + name);
+                        if (month != 0 && sumYear != 0 && side != 0) {
+
+                            if (side == 1) {
+                                ArrayList<String> listName = new ArrayList<String>();
+                                ArrayList<String> listUnit = new ArrayList<String>();
+                                ArrayList<String> listTransaction = new ArrayList<String>();
+
+                                for (int i = 0; i <= 11; i++) {
+                                    name = dao.getData().get(i).getKpiName();
+                                    unit = dao.getData().get(i).getUnit();
+                                    transaction = dao.getData().get(i).getTransactionAmount();
+                                    listName.add(name);
+                                    listUnit.add(unit);
+                                    listTransaction.add(transaction);
+                                }
+
+                                listName.add(dao.getData().get(18).getKpiName());
+                                listUnit.add(dao.getData().get(18).getUnit());
+                                listTransaction.add(dao.getData().get(18).getTransactionAmount());
+
+                                for (int i = 12; i <= 17; i++) {
+                                    name = dao.getData().get(i).getKpiName();
+                                    unit = dao.getData().get(i).getUnit();
+                                    transaction = dao.getData().get(i).getTransactionAmount();
+                                    listName.add(name);
+                                    listUnit.add(unit);
+                                    listTransaction.add(transaction);
+                                }
+
+                                listName.add(dao.getData().get(19).getKpiName());
+                                listName.add(dao.getData().get(20).getKpiName());
+                                listUnit.add(dao.getData().get(19).getUnit());
+                                listUnit.add(dao.getData().get(20).getUnit());
+                                listTransaction.add(dao.getData().get(19).getTransactionAmount());
+                                listTransaction.add(dao.getData().get(20).getTransactionAmount());
+
+                                for (int i = 21; i < dao.getData().size(); i++) {
+                                    name = dao.getData().get(i).getKpiName();
+                                    unit = dao.getData().get(i).getUnit();
+                                    transaction = dao.getData().get(i).getTransactionAmount();
+                                    listName.add(name);
+                                    listUnit.add(unit);
+                                    listTransaction.add(transaction);
+                                }
+
+                                //Log.d("FLUKE", "Name : " + listName);
+                                //Log.d("FLUKE", "Unit : " + listUnit);
+                                //Log.d("FLUKE", "Transaction : " + listTransaction);
+
+                                Intent intent = new Intent(getContext(), DataActivity.class);
+                                intent.putExtra("key", 16);
+                                intent.putStringArrayListExtra("name", listName);
+                                intent.putStringArrayListExtra("unit", listUnit);
+                                intent.putStringArrayListExtra("transaction", listTransaction);
+                                intent.putExtra("nameMonth", nameMonth);
+                                intent.putExtra("nameYear", nameYear);
+
+                                startActivity(intent);
+
+                            } else {
+                                ArrayList<String> listName = new ArrayList<String>();
+                                ArrayList<String> listUnit = new ArrayList<String>();
+                                ArrayList<String> listTransaction = new ArrayList<String>();
+
+                                for (int i = 0; i < dao.getData().size(); i++) {
+                                    name = dao.getData().get(i).getKpiName();
+                                    unit = dao.getData().get(i).getUnit();
+                                    transaction = dao.getData().get(i).getTransactionAmount();
+                                    listName.add(name);
+                                    listUnit.add(unit);
+                                    listTransaction.add(transaction);
+                                }
+
+                                //Log.d("FLUKE", "Name : " + listName);
+                                //Log.d("FLUKE", "Unit : " + listUnit);
+                                //Log.d("FLUKE", "Transaction : " + listTransaction);
+
+                                Intent intent = new Intent(getContext(), DataActivity.class);
+                                intent.putExtra("key", 16);
+                                intent.putStringArrayListExtra("name", listName);
+                                intent.putStringArrayListExtra("unit", listUnit);
+                                intent.putStringArrayListExtra("transaction", listTransaction);
+                                intent.putExtra("nameMonth", nameMonth);
+                                intent.putExtra("nameYear", nameYear);
+
+                                startActivity(intent);
+                            }
+
+                        } else {
+                            MsgBox();
+                        }
 
                     } else {
                         try {
@@ -162,6 +271,8 @@ public class EconomicMonthFragment extends Fragment {
                 sumMonth = "" + month;
             }
             //Toast.makeText(getContext(), "Month = " + sumMonth, Toast.LENGTH_SHORT).show();
+            nameMonth = parent.getSelectedItem().toString();
+            //Toast.makeText(getContext(), "Month : " + nameMonth, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -180,6 +291,9 @@ public class EconomicMonthFragment extends Fragment {
                 sumYear = Integer.valueOf(parent.getItemAtPosition(position).toString()) - val;
                 //Toast.makeText(getContext(), "Year = " + sumYear, Toast.LENGTH_SHORT).show();
             }
+
+            nameYear = parent.getSelectedItem().toString();
+
         }
 
         @Override
