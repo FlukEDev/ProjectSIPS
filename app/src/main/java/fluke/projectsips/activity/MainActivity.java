@@ -23,15 +23,21 @@ import java.util.List;
 
 import fluke.projectsips.R;
 import fluke.projectsips.adapter.MyExpandableAdapter;
-import fluke.projectsips.fragment.economic.CategCpiFragment;
 import fluke.projectsips.fragment.ComingFragment;
+import fluke.projectsips.fragment.MainFragment;
+import fluke.projectsips.fragment.agriculture.AreaFragment;
+import fluke.projectsips.fragment.economic.CategCpiFragment;
 import fluke.projectsips.fragment.economic.CpiFragment;
 import fluke.projectsips.fragment.economic.EconomicMonthFragment;
 import fluke.projectsips.fragment.economic.GppFragment;
 import fluke.projectsips.fragment.economic.LfpFragment;
-import fluke.projectsips.fragment.MainFragment;
+import fluke.projectsips.fragment.information.Content1Fragment;
+import fluke.projectsips.fragment.information.Content2Fragment;
+import fluke.projectsips.fragment.information.Content3Fragment;
+import fluke.projectsips.fragment.information.Content4Fragment;
+import fluke.projectsips.fragment.information.Content5Fragment;
+import fluke.projectsips.fragment.information.Content6Fragment;
 import fluke.projectsips.fragment.information.PopulationFragment;
-import fluke.projectsips.fragment.agriculture.AreaFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -87,6 +93,72 @@ public class MainActivity extends AppCompatActivity {
                     // Information
                     case 0:
                         switch (childPosition) {
+                            case 0:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof Content1Fragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, Content1Fragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                break;
+                            case 1:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof Content2Fragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, Content2Fragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                break;
+                            case 2:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof Content3Fragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, Content3Fragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                break;
+                            case 3:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof Content4Fragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, Content4Fragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                break;
+                            case 4:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof Content5Fragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, Content5Fragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                break;
+                            case 5:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof Content6Fragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, Content6Fragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                break;
                             case 6:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
                                     getSupportFragmentManager().popBackStack();
