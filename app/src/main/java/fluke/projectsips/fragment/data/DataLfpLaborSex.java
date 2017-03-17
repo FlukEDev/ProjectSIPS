@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
@@ -144,9 +145,9 @@ public class DataLfpLaborSex extends Fragment {
         }
 
         TableRow rowSum = new TableRow(getContext());
-        String sumAll = String.valueOf(listSum.get(0) + listSum.get(10));
-        String sumMale = String.valueOf(listMale.get(0) + listMale.get(10));
-        String sumFemale = String.valueOf(listFemale.get(0) + listFemale.get(10));
+        String sumAll = String.valueOf(NumberFormat.getInstance().format(listSum.get(0) + listSum.get(10)));
+        String sumMale = String.valueOf(NumberFormat.getInstance().format(listMale.get(0) + listMale.get(10)));
+        String sumFemale = String.valueOf(NumberFormat.getInstance().format(listFemale.get(0) + listFemale.get(10)));
         TextView tvSumStatus = new TextView(getContext());
         tvSumStatus.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumStatus.setTextColor(Color.parseColor("#FFFFFF"));
@@ -172,9 +173,9 @@ public class DataLfpLaborSex extends Fragment {
         for (int i = 0; i < listStatus.size(); i++) {
             TableRow row = new TableRow(getContext());
             String status = listStatus.get(i);
-            String sum = String.valueOf(listSum.get(i));
-            String male = String.valueOf(listMale.get(i));
-            String female = String.valueOf(listFemale.get(i));
+            String sum = String.valueOf(NumberFormat.getInstance().format(listSum.get(i)));
+            String male = String.valueOf(NumberFormat.getInstance().format(listMale.get(i)));
+            String female = String.valueOf(NumberFormat.getInstance().format(listFemale.get(i)));
             TextView tvStatus = new TextView(getContext());
             tvStatus.setGravity(Gravity.CENTER_HORIZONTAL);
             tvStatus.setTextColor(Color.parseColor("#FFFFFF"));

@@ -13,10 +13,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
+// ผลิตภัณฑ์มวลรวมในประเทศ
 
 public class DataGdpFragment extends Fragment {
 
@@ -96,11 +98,11 @@ public class DataGdpFragment extends Fragment {
             TextView price = new TextView(getContext());
             price.setGravity(Gravity.CENTER_HORIZONTAL);
             price.setTextColor(Color.parseColor("#FFFFFF"));
-            price.setText(String.valueOf(grpPrice));
+            price.setText(String.valueOf(NumberFormat.getInstance().format(grpPrice)));
             TextView population = new TextView(getContext());
             population.setGravity(Gravity.CENTER_HORIZONTAL);
             population.setTextColor(Color.parseColor("#FFFFFF"));
-            population.setText(String.valueOf(grpPopulation));
+            population.setText(String.valueOf(NumberFormat.getInstance().format(grpPopulation)));
             rowRegion.addView(name);
             rowRegion.addView(price);
             rowRegion.addView(population);

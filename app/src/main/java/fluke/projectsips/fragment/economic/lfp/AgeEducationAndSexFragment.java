@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//จำนวนและร้อยละของประชากรอายุ 15 ปีขึ้นไป จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
+// จำนวนและร้อยละของประชากรอายุ 15 ปีขึ้นไป จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
 
 public class AgeEducationAndSexFragment extends Fragment {
 

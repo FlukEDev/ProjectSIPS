@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
@@ -137,6 +138,9 @@ public class PopulationFragment extends Fragment {
                     if (response.isSuccessful()) {
                         PopulationCollectionDao dao = response.body();
                         if (district != 0 && sum != 0) {
+
+                            DecimalFormat formatter = new DecimalFormat("#,###,###");
+
                             ArrayList<String> listMale = new ArrayList<String>();
                             for (i = 0; i < dao.getData().size(); i++) {
                                 populationMale = dao.getData().get(i).getPopulationMale();

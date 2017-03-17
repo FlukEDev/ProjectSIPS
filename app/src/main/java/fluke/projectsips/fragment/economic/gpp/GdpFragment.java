@@ -28,6 +28,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// ผลิตภัณฑ์มวลรวมในประเทศ
 
 public class GdpFragment extends Fragment {
 

@@ -27,7 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-//จำนวนและร้อยละของผู้มีงานทำ จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
+// จำนวนและร้อยละของผู้มีงานทำ จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
 
 public class EmployedEducationAndSexFragment extends Fragment {
 

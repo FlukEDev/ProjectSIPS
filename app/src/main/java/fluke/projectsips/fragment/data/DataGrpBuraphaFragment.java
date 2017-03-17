@@ -13,10 +13,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
+// ผลิตภัณฑ์มวลรวมกลุ่มเบญจบูรพาสุวรรณภูมิ
 
 public class DataGrpBuraphaFragment extends Fragment {
 
@@ -101,11 +103,11 @@ public class DataGrpBuraphaFragment extends Fragment {
         TextView sumGrpPrice = new TextView(getContext());
         sumGrpPrice.setGravity(Gravity.CENTER_HORIZONTAL);
         sumGrpPrice.setTextColor(Color.parseColor("#FFFFFF"));
-        sumGrpPrice.setText(String.valueOf(sumPrice));
+        sumGrpPrice.setText(String.valueOf(NumberFormat.getInstance().format(sumPrice)));
         TextView sumGrpPopulation = new TextView(getContext());
         sumGrpPopulation.setGravity(Gravity.CENTER_HORIZONTAL);
         sumGrpPopulation.setTextColor(Color.parseColor("#FFFFFF"));
-        sumGrpPopulation.setText(String.valueOf(sumPopulation));
+        sumGrpPopulation.setText(String.valueOf(NumberFormat.getInstance().format(sumPopulation)));
         rowSumGrp.addView(regionName);
         rowSumGrp.addView(sumGrpPrice);
         rowSumGrp.addView(sumGrpPopulation);
@@ -124,11 +126,11 @@ public class DataGrpBuraphaFragment extends Fragment {
             TextView price = new TextView(getContext());
             price.setGravity(Gravity.CENTER_HORIZONTAL);
             price.setTextColor(Color.parseColor("#FFFFFF"));
-            price.setText(String.valueOf(grpPrice));
+            price.setText(String.valueOf(NumberFormat.getInstance().format(grpPrice)));
             TextView population = new TextView(getContext());
             population.setGravity(Gravity.CENTER_HORIZONTAL);
             population.setTextColor(Color.parseColor("#FFFFFF"));
-            population.setText(String.valueOf(grpPopulation));
+            population.setText(String.valueOf(NumberFormat.getInstance().format(grpPopulation)));
             rowRegion.addView(name);
             rowRegion.addView(price);
             rowRegion.addView(population);

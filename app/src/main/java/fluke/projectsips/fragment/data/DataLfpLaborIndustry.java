@@ -19,6 +19,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
@@ -217,15 +218,15 @@ public class DataLfpLaborIndustry extends Fragment {
         TextView tvSumAll = new TextView(getContext());
         tvSumAll.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumAll.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumAll.setText(String.valueOf(allSum));
+        tvSumAll.setText(String.valueOf(NumberFormat.getInstance().format(allSum)));
         TextView tvSumMale = new TextView(getContext());
         tvSumMale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumMale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumMale.setText(String.valueOf(allMale));
+        tvSumMale.setText(String.valueOf(NumberFormat.getInstance().format(allMale)));
         TextView tvSumFemale = new TextView(getContext());
         tvSumFemale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumFemale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumFemale.setText(String.valueOf(allFemale));
+        tvSumFemale.setText(String.valueOf(NumberFormat.getInstance().format(allFemale)));
         rowSum.addView(tvSumStatus);
         rowSum.addView(tvSumAll);
         rowSum.addView(tvSumMale);
@@ -235,9 +236,9 @@ public class DataLfpLaborIndustry extends Fragment {
         for (int i = 0; i < listName.size(); i++) {
             TableRow row = new TableRow(getContext());
             String status = listName.get(i);
-            String sum = String.valueOf(listSum.get(i));
-            String male = String.valueOf(listMale.get(i));
-            String female = String.valueOf(listFemale.get(i));
+            String sum = String.valueOf(NumberFormat.getInstance().format(listSum.get(i)));
+            String male = String.valueOf(NumberFormat.getInstance().format(listMale.get(i)));
+            String female = String.valueOf(NumberFormat.getInstance().format(listFemale.get(i)));
             TextView tvStatus = new TextView(getContext());
             tvStatus.setWidth(300);
             //tvStatus.setGravity(Gravity.CENTER_HORIZONTAL);

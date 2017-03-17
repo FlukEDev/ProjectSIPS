@@ -21,11 +21,12 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
-//จำนวนและร้อยละของประชากรอายุ 15 ปีขึ้นไป จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
+// จำนวนและร้อยละของประชากรอายุ 15 ปีขึ้นไป จำแนกตามระดับการศึกษาที่สำเร็จ และเพศ
 
 public class DataLfpEduSex extends Fragment {
 
@@ -155,12 +156,33 @@ public class DataLfpEduSex extends Fragment {
         }
 
         TableRow rowSum = new TableRow(getContext());
-        String sumAll = String.valueOf(listSum.get(0) + listSum.get(1) + listSum.get(2) + listSum.get(3) +
-                listSum.get(4) + listSum.get(8) + listSum.get(12) + listSum.get(13));
-        String sumMale = String.valueOf(listMale.get(0) + listMale.get(1) + listMale.get(2) + listMale.get(3) +
-                listMale.get(4) + listMale.get(8) + listMale.get(12) + listMale.get(13));
-        String sumFemale = String.valueOf(listFemale.get(0) + listFemale.get(1) + listFemale.get(2) + listFemale.get(3) +
-                listFemale.get(4) + listFemale.get(8) + listFemale.get(12) + listFemale.get(13));
+        String sumAll = String.valueOf(NumberFormat.getInstance().format(listSum.get(0)
+                + listSum.get(1)
+                + listSum.get(2)
+                + listSum.get(3)
+                + listSum.get(4)
+                + listSum.get(8)
+                + listSum.get(12)
+                + listSum.get(13)));
+
+        String sumMale = String.valueOf(NumberFormat.getInstance().format(listMale.get(0)
+                + listMale.get(1)
+                + listMale.get(2)
+                + listMale.get(3)
+                + listMale.get(4)
+                + listMale.get(8)
+                + listMale.get(12)
+                + listMale.get(13)));
+
+        String sumFemale = String.valueOf(NumberFormat.getInstance().format(listFemale.get(0)
+                + listFemale.get(1)
+                + listFemale.get(2)
+                + listFemale.get(3)
+                + listFemale.get(4)
+                + listFemale.get(8)
+                + listFemale.get(12)
+                + listFemale.get(13)));
+
         TextView tvSumStatus = new TextView(getContext());
         tvSumStatus.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumStatus.setTextColor(Color.parseColor("#FFFFFF"));
@@ -187,9 +209,9 @@ public class DataLfpEduSex extends Fragment {
         for (int i = 0; i < listName.size(); i++) {
             TableRow row = new TableRow(getContext());
             String status = listName.get(i);
-            String sum = String.valueOf(listSum.get(i));
-            String male = String.valueOf(listMale.get(i));
-            String female = String.valueOf(listFemale.get(i));
+            String sum = String.valueOf(NumberFormat.getInstance().format(listSum.get(i)));
+            String male = String.valueOf(NumberFormat.getInstance().format(listMale.get(i)));
+            String female = String.valueOf(NumberFormat.getInstance().format(listFemale.get(i)));
             TextView tvStatus = new TextView(getContext());
             tvStatus.setGravity(Gravity.CENTER_HORIZONTAL);
             tvStatus.setTextColor(Color.parseColor("#FFFFFF"));

@@ -13,10 +13,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
 
+// ผลิตภัณฑ์มวลรวมรายจังหวัด (GPP)
 
 public class DataGppProvinceFragment extends Fragment {
 
@@ -104,7 +106,8 @@ public class DataGppProvinceFragment extends Fragment {
         for (int i = 0; i < 2; i++) {
             TableRow rowDataAgricultural = new TableRow(getContext());
             String name = listGppProvinceName.get(i);
-            String price = String.valueOf(listGppProvincePrice.get(i));
+            String price = String.valueOf(NumberFormat.getInstance().format(listGppProvincePrice.get(i)));
+            String sumPrice = String.valueOf(listGppProvincePrice.get(i));
             TextView trName = new TextView(getContext());
             trName.setTextColor(Color.parseColor("#FFFFFF"));
             trName.setText("  " + name);
@@ -113,14 +116,14 @@ public class DataGppProvinceFragment extends Fragment {
             trPrice.setTextColor(Color.parseColor("#FFFFFF"));
             trPrice.setText(price);
 
-            sumDataAgricultural += Integer.valueOf(price);
+            sumDataAgricultural += Integer.valueOf(sumPrice);
 
             rowDataAgricultural.addView(trName);
             rowDataAgricultural.addView(trPrice);
             tableData.addView(rowDataAgricultural);
         }
 
-        sumAgricultural.setText(String.valueOf(sumDataAgricultural));
+        sumAgricultural.setText(String.valueOf(NumberFormat.getInstance().format(sumDataAgricultural)));
 
         // ภาคนอกการเกษตร
         TableRow rowNonAgricultural = new TableRow(getContext());
@@ -138,7 +141,8 @@ public class DataGppProvinceFragment extends Fragment {
         for (int i = 2; i < listGppProvincePrice.size(); i++) {
             TableRow rowDataNonAgricultural = new TableRow(getContext());
             String name = listGppProvinceName.get(i);
-            String price = String.valueOf(listGppProvincePrice.get(i));
+            String price = String.valueOf(NumberFormat.getInstance().format(listGppProvincePrice.get(i)));
+            String sumPrice = String.valueOf(listGppProvincePrice.get(i));
             TextView trName = new TextView(getContext());
             trName.setTextColor(Color.parseColor("#FFFFFF"));
             trName.setText("  " + name);
@@ -147,13 +151,13 @@ public class DataGppProvinceFragment extends Fragment {
             trPrice.setTextColor(Color.parseColor("#FFFFFF"));
             trPrice.setText(price);
 
-            sumDataNonAgricultural += Integer.valueOf(price);
+            sumDataNonAgricultural += Integer.valueOf(sumPrice);
 
             rowDataNonAgricultural.addView(trName);
             rowDataNonAgricultural.addView(trPrice);
             tableData.addView(rowDataNonAgricultural);
         }
-        sumNonAgricultural.setText(String.valueOf(sumDataNonAgricultural));
+        sumNonAgricultural.setText(String.valueOf(NumberFormat.getInstance().format(sumDataNonAgricultural)));
 
         sumGpp = sumDataAgricultural + sumDataNonAgricultural;
 
@@ -165,7 +169,7 @@ public class DataGppProvinceFragment extends Fragment {
         TextView trGpp = new TextView(getContext());
         trGpp.setGravity(Gravity.CENTER_HORIZONTAL);
         trGpp.setTextColor(Color.parseColor("#FFFFFF"));
-        trGpp.setText(String.valueOf(sumGpp));
+        trGpp.setText(String.valueOf(NumberFormat.getInstance().format(sumGpp)));
         gpp.addView(trName);
         gpp.addView(trGpp);
         tableData.addView(gpp);

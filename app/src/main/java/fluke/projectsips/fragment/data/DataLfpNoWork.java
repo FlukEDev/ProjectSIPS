@@ -20,6 +20,7 @@ import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 import fluke.projectsips.R;
@@ -122,11 +123,11 @@ public class DataLfpNoWork extends Fragment {
         TextView tvSumAll = new TextView(getContext());
         tvSumAll.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumAll.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumAll.setText(String.valueOf(workMale + workFemale));
+        tvSumAll.setText(String.valueOf(NumberFormat.getInstance().format(workMale + workFemale)));
         TextView tvSumMale = new TextView(getContext());
         tvSumMale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvSumMale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvSumMale.setText(String.valueOf(noWorkMale + noWorkFemale));
+        tvSumMale.setText(String.valueOf(NumberFormat.getInstance().format(noWorkMale + noWorkFemale)));
         rowSum.addView(tvSumStatus);
         rowSum.addView(tvSumAll);
         rowSum.addView(tvSumMale);
@@ -140,11 +141,11 @@ public class DataLfpNoWork extends Fragment {
         TextView tvWorkMale = new TextView(getContext());
         tvWorkMale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvWorkMale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvWorkMale.setText(String.valueOf(workMale));
+        tvWorkMale.setText(String.valueOf(NumberFormat.getInstance().format(workMale)));
         TextView tvNoWorkMale = new TextView(getContext());
         tvNoWorkMale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvNoWorkMale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvNoWorkMale.setText(String.valueOf(noWorkMale));
+        tvNoWorkMale.setText(String.valueOf(NumberFormat.getInstance().format(noWorkMale)));
         rowMale.addView(tvMale);
         rowMale.addView(tvWorkMale);
         rowMale.addView(tvNoWorkMale);
@@ -154,15 +155,15 @@ public class DataLfpNoWork extends Fragment {
         TextView tvFemale = new TextView(getContext());
         //tvSumStatus.setGravity(Gravity.CENTER_HORIZONTAL);
         tvFemale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvFemale.setText("ชาย");
+        tvFemale.setText("หญิง");
         TextView tvWorkFemale = new TextView(getContext());
         tvWorkFemale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvWorkFemale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvWorkFemale.setText(String.valueOf(workFemale));
+        tvWorkFemale.setText(String.valueOf(NumberFormat.getInstance().format(workFemale)));
         TextView tvNoWorkFemale = new TextView(getContext());
         tvNoWorkFemale.setGravity(Gravity.CENTER_HORIZONTAL);
         tvNoWorkFemale.setTextColor(Color.parseColor("#FFFFFF"));
-        tvNoWorkFemale.setText(String.valueOf(noWorkFemale));
+        tvNoWorkFemale.setText(String.valueOf(NumberFormat.getInstance().format(noWorkFemale)));
         rowFemale.addView(tvFemale);
         rowFemale.addView(tvWorkFemale);
         rowFemale.addView(tvNoWorkFemale);

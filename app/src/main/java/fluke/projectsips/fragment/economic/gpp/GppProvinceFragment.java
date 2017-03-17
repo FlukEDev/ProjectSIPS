@@ -29,6 +29,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+// ผลิตภัณฑ์มวลรวมรายจังหวัด (GPP)
 
 public class GppProvinceFragment extends Fragment {
 
