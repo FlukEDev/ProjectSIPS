@@ -90,8 +90,23 @@ public class MainActivity extends AppCompatActivity {
 
                 //Toast.makeText(MainActivity.this, headers.get(groupPosition) + "--" + headerItems.get(headers.get(groupPosition)).get(childPosition), Toast.LENGTH_SHORT).show();
                 switch (groupPosition) {
-                    // Information
                     case 0:
+                        switch (childPosition) {
+                            case 0:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof MainFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, MainFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                break;
+                        }
+                        break;
+                    // Information
+                    case 1:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -173,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // Economic Trade
-                    case 1:
+                    case 2:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -245,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // Investment
-                    case 2:
+                    case 3:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -298,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // Border Trade
-                    case 3:
+                    case 4:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -423,7 +438,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // otop
-                    case 4:
+                    case 5:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -534,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // Agriculture
-                    case 5:
+                    case 6:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -659,7 +674,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // Industry
-                    case 6:
+                    case 7:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -724,7 +739,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // Tourism
-                    case 7:
+                    case 8:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -813,83 +828,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                         break;
                     // Transport
-                    case 8:
-                        switch (childPosition) {
-                            case 0:
-                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-                                    getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
-                                    getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
-                                            .addToBackStack(null)
-                                            .commit();
-                                    drawerLayout.closeDrawer(Gravity.LEFT);
-                                }
-                                check(fragment);
-                                break;
-                            case 1:
-                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-                                    getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
-                                    getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
-                                            .addToBackStack(null)
-                                            .commit();
-                                    drawerLayout.closeDrawer(Gravity.LEFT);
-                                }
-                                check(fragment);
-                                break;
-                            case 2:
-                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-                                    getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
-                                    getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
-                                            .addToBackStack(null)
-                                            .commit();
-                                    drawerLayout.closeDrawer(Gravity.LEFT);
-                                }
-                                check(fragment);
-                                break;
-                            case 3:
-                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-                                    getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
-                                    getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
-                                            .addToBackStack(null)
-                                            .commit();
-                                    drawerLayout.closeDrawer(Gravity.LEFT);
-                                }
-                                check(fragment);
-                                break;
-                            case 4:
-                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-                                    getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
-                                    getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
-                                            .addToBackStack(null)
-                                            .commit();
-                                    drawerLayout.closeDrawer(Gravity.LEFT);
-                                }
-                                check(fragment);
-                                break;
-                            case 5:
-                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
-                                    getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
-                                    getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
-                                            .addToBackStack(null)
-                                            .commit();
-                                    drawerLayout.closeDrawer(Gravity.LEFT);
-                                }
-                                check(fragment);
-                                break;
-                        }
-                        break;
-                    // Asean
                     case 9:
                         switch (childPosition) {
                             case 0:
@@ -966,8 +904,85 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                         }
                         break;
-                    // Power Plant
+                    // Asean
                     case 10:
+                        switch (childPosition) {
+                            case 0:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof ComingFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                check(fragment);
+                                break;
+                            case 1:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof ComingFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                check(fragment);
+                                break;
+                            case 2:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof ComingFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                check(fragment);
+                                break;
+                            case 3:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof ComingFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                check(fragment);
+                                break;
+                            case 4:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof ComingFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                check(fragment);
+                                break;
+                            case 5:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof ComingFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
+                                check(fragment);
+                                break;
+                        }
+                        break;
+                    // Power Plant
+                    case 11:
                         switch (childPosition) {
                             case 0:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -1030,6 +1045,7 @@ public class MainActivity extends AppCompatActivity {
         headerItems = new HashMap<String, List<String>>();
 
         //adding headers
+        headers.add("หน้าหลัก");
         headers.add("ข้อมูลทั่วไป");
         headers.add("ภาวะเศรษฐกิจการค้า");
         headers.add("การลงทุน");
@@ -1043,6 +1059,9 @@ public class MainActivity extends AppCompatActivity {
         headers.add("พืชพลังงาน");
 
         //preparing header items data
+        List<String> main = new ArrayList<>();
+        main.add("วิธีใช้งานเบื้องต้น");
+
         List<String> information = new ArrayList<String>();
         information.add("ข้อมูลพื้นฐาน");
         information.add("วิสัยทัศน์และยุทธศาสตร์");
@@ -1139,17 +1158,18 @@ public class MainActivity extends AppCompatActivity {
         powerPlant.add("พื้นที่การเกษตร");
 
         //contain header and header items
-        headerItems.put(headers.get(0), information);
-        headerItems.put(headers.get(1), economicTrade);
-        headerItems.put(headers.get(2), investment);
-        headerItems.put(headers.get(3), borderTrade);
-        headerItems.put(headers.get(4), otop);
-        headerItems.put(headers.get(5), agriculture);
-        headerItems.put(headers.get(6), industry);
-        headerItems.put(headers.get(7), tourism);
-        headerItems.put(headers.get(8), transport);
-        headerItems.put(headers.get(9), asean);
-        headerItems.put(headers.get(10), powerPlant);
+        headerItems.put(headers.get(0), main);
+        headerItems.put(headers.get(1), information);
+        headerItems.put(headers.get(2), economicTrade);
+        headerItems.put(headers.get(3), investment);
+        headerItems.put(headers.get(4), borderTrade);
+        headerItems.put(headers.get(5), otop);
+        headerItems.put(headers.get(6), agriculture);
+        headerItems.put(headers.get(7), industry);
+        headerItems.put(headers.get(8), tourism);
+        headerItems.put(headers.get(9), transport);
+        headerItems.put(headers.get(10), asean);
+        headerItems.put(headers.get(11), powerPlant);
     }
 
     private void initInstances() {
