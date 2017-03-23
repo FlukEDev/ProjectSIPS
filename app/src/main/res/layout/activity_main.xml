@@ -44,7 +44,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="1. กดเมนูมุมซ้ายบนเพื่อเลือกด้านที่ต้องการ"
+                android:text="1. กดเปิดเมนูด้านบนซ้าย"
                 android:textSize="@dimen/subHeadLine"
                 android:textColor="@color/font"
                 android:padding="5dp"/>
@@ -52,7 +52,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2. เลืกด้านข้อมูลที่ต้องการ"
+                android:text="2. เลือกด้านข้อมูลที่ต้องการ"
                 android:textSize="@dimen/subHeadLine"
                 android:textColor="@color/font"
                 android:padding="5dp"/>
