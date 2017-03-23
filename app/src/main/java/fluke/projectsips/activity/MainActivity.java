@@ -233,9 +233,9 @@ public class MainActivity extends AppCompatActivity {
                             case 5:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
                                     getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
+                                if (fragment instanceof AreaFragment == false) {
                                     getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .replace(R.id.contentContainer, AreaFragment.newInstance())
                                             .addToBackStack(null)
                                             .commit();
                                     drawerLayout.closeDrawer(Gravity.LEFT);
@@ -1058,6 +1058,7 @@ public class MainActivity extends AppCompatActivity {
         economicTrade.add("ผลิตภัณฑ์มวลรวมจังหวัด");
         economicTrade.add("ภาวะการทำงานของประชากร");
         economicTrade.add("ภาวะเศรษฐกิจรายเดือน");
+        economicTrade.add("พื้นที่การเกษตร");
         economicTrade.add("บทวิเคราะห์");
 
         List<String> investment = new ArrayList<String>();

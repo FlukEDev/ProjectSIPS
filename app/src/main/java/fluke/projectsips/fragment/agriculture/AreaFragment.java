@@ -1,8 +1,10 @@
 package fluke.projectsips.fragment.agriculture;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -173,6 +175,18 @@ public class AreaFragment extends Fragment {
         // Restore Instance (Fragment level's variables) State here
     }
 
+    private void MsgBox() {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+        alertDialogBuilder.setMessage("คุณยังไม่ได้ทำการเลือก ประเภทเกษตรกรรม ที่ต้องการดูข้อมูล");
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
     /***********
      *
      * Listeners
@@ -191,16 +205,20 @@ public class AreaFragment extends Fragment {
 
                         objGoogleMap.clear();
 
-                        // Create LatLng
-                        for (int i = 0; i < dao.getData().size(); i++) {
-                            objLatLng = new LatLng(Double.valueOf(dao.getData().get(i).getAreaLatitude()) ,
-                                    Double.valueOf(dao.getData().get(i).getAreaLongitude()));
-                            objTitle = dao.getData().get(i).getAreaName();
-                            objSnippet = dao.getData().get(i).getAreaDetail();
-                            objGoogleMap.addMarker(new MarkerOptions()
-                                    .position(objLatLng)
-                                    .title(objTitle)
-                                    .snippet(objSnippet));
+                        if (product != 0) {
+                            // Create LatLng
+                            for (int i = 0; i < dao.getData().size(); i++) {
+                                objLatLng = new LatLng(Double.valueOf(dao.getData().get(i).getAreaLatitude()),
+                                        Double.valueOf(dao.getData().get(i).getAreaLongitude()));
+                                objTitle = dao.getData().get(i).getAreaName();
+                                objSnippet = dao.getData().get(i).getAreaDetail();
+                                objGoogleMap.addMarker(new MarkerOptions()
+                                        .position(objLatLng)
+                                        .title(objTitle)
+                                        .snippet(objSnippet));
+                            }
+                        } else {
+                            MsgBox();
                         }
 
                         // Create Marker for Center Map
