@@ -180,6 +180,7 @@ public class DataLfpLaborIndustry extends Fragment {
 
         BarData data = new BarData(labels, dataSets);
         barChart.setData(data);
+        barChart.setDescription("");
 
     }
 
