@@ -1,5 +1,7 @@
 package fluke.projectsips.manager.http;
 
+import fluke.projectsips.dao.BorderCheckpointCollectionDao;
+import fluke.projectsips.dao.BorderCheckpointTypeCollection;
 import fluke.projectsips.dao.CpiCategCollectionDao;
 import fluke.projectsips.dao.CpiCollectionDao;
 import fluke.projectsips.dao.EcoMonthCollectionDao;
@@ -99,6 +101,9 @@ public interface ApiService {
     @GET("farm-area.php")
     Call<FarmAreaCollectionDao> getFarmArea(@Query("product") int product);
 
+    @GET("border-checkpoint.php")
+    Call<BorderCheckpointCollectionDao> getBorderCheckpoint(@Query("product") int product);
+
     @POST("province.php")
     Call<ProvinceCollectionDao> getProvince();
 
@@ -107,5 +112,8 @@ public interface ApiService {
 
     @POST("region.php")
     Call<RegionCollectionDao> getRegion();
+
+    @POST("border-checkpoint-type.php")
+    Call<BorderCheckpointTypeCollection> getBorderCheckpointType();
 
 }

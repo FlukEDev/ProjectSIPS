@@ -109,7 +109,7 @@ public class DataPopulationFragment extends Fragment {
         // create a data object with the datasets
         LineData data = new LineData(labels, dataSets);
         data.setValueTextColor(Color.WHITE);
-        data.setValueTextSize(9f);
+        data.setValueTextSize(11f);
 
         // set data
         mChart.setData(data);

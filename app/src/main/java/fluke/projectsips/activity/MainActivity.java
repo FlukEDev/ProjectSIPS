@@ -26,6 +26,7 @@ import fluke.projectsips.adapter.MyExpandableAdapter;
 import fluke.projectsips.fragment.ComingFragment;
 import fluke.projectsips.fragment.MainFragment;
 import fluke.projectsips.fragment.agriculture.AreaFragment;
+import fluke.projectsips.fragment.borderTrade.BorderCheckpointFragment;
 import fluke.projectsips.fragment.economic.CategCpiFragment;
 import fluke.projectsips.fragment.economic.CpiFragment;
 import fluke.projectsips.fragment.economic.EconomicMonthFragment;
@@ -255,7 +256,17 @@ public class MainActivity extends AppCompatActivity {
                                             .commit();
                                     drawerLayout.closeDrawer(Gravity.LEFT);
                                 }
-                                check(fragment);
+                                break;
+                            case 6:
+                                if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+                                    getSupportFragmentManager().popBackStack();
+                                if (fragment instanceof BorderCheckpointFragment == false) {
+                                    getSupportFragmentManager().beginTransaction()
+                                            .replace(R.id.contentContainer, BorderCheckpointFragment.newInstance())
+                                            .addToBackStack(null)
+                                            .commit();
+                                    drawerLayout.closeDrawer(Gravity.LEFT);
+                                }
                                 break;
                         }
                         break;
@@ -402,14 +413,13 @@ public class MainActivity extends AppCompatActivity {
                             case 7:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
                                     getSupportFragmentManager().popBackStack();
-                                if (fragment instanceof ComingFragment == false) {
+                                if (fragment instanceof BorderCheckpointFragment == false) {
                                     getSupportFragmentManager().beginTransaction()
-                                            .replace(R.id.contentContainer, ComingFragment.newInstance())
+                                            .replace(R.id.contentContainer, BorderCheckpointFragment.newInstance())
                                             .addToBackStack(null)
                                             .commit();
                                     drawerLayout.closeDrawer(Gravity.LEFT);
                                 }
-                                check(fragment);
                                 break;
                             case 8:
                                 if (getSupportFragmentManager().getBackStackEntryCount() > 0)
@@ -1078,6 +1088,7 @@ public class MainActivity extends AppCompatActivity {
         economicTrade.add("ภาวะการทำงานของประชากร");
         economicTrade.add("ภาวะเศรษฐกิจรายเดือน");
         economicTrade.add("พื้นที่การเกษตร");
+        economicTrade.add("จุดผ่านแดนบริเวณชายแดนจังหวัดสระแก้ว");
         economicTrade.add("บทวิเคราะห์");
 
         List<String> investment = new ArrayList<String>();
