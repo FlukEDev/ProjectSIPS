@@ -2,7 +2,37 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@mipmap/banner" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/logosakaeo" />
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@mipmap/logobuu2" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,42 +52,42 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="1. กดเปิดเมนูด้านบนซ้าย"
-            android:textSize="@dimen/subHeadLine"
             android:textColor="@color/font"
-            android:padding="5dp"/>
+            android:textSize="@dimen/subHeadLine" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="2. เลือกด้านข้อมูลที่ต้องการ"
-            android:textSize="@dimen/subHeadLine"
             android:textColor="@color/font"
-            android:padding="5dp"/>
+            android:textSize="@dimen/subHeadLine" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="3. เลือกหัวข้อที่ต้องการ"
-            android:textSize="@dimen/subHeadLine"
             android:textColor="@color/font"
-            android:padding="5dp"/>
+            android:textSize="@dimen/subHeadLine" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="4. เลือกรายละเอียดที่ต้องการดูข้อมูล"
-            android:textSize="@dimen/subHeadLine"
             android:textColor="@color/font"
-            android:padding="5dp"/>
+            android:textSize="@dimen/subHeadLine" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:padding="5dp"
             android:text="5. กด ค้นหา"
-            android:textSize="@dimen/subHeadLine"
             android:textColor="@color/font"
-            android:padding="5dp"/>
+            android:textSize="@dimen/subHeadLine" />
 
     </LinearLayout>
 
